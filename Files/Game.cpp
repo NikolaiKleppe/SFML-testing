@@ -18,7 +18,7 @@ Game::Game() {
 void Game::runWindow() {			
 	while (window.isOpen()) {	
 		userInput();	
-        drawGame();					
+		drawGame();					
 		window.display();		
 	}	
 }
@@ -69,7 +69,9 @@ void Game::drawBorders() {
 
 
 	//MainPlayer collides with top border
-	if (top.getGlobalBounds().intersects(MainPlayer.getGlobalBounds())) {								//Need to fix this +20 crap. Don't understand why it doesn't work without it
+
+	//Need to fix this +20 crap. Won't work properly without it..? 
+	if (top.getGlobalBounds().intersects(MainPlayer.getGlobalBounds())) {		
 		MainPlayer.setPosition(MainPlayer.getPosition().x, top.getPosition().y + MainPlayer.getOrigin().y + 20);
 
 	}
