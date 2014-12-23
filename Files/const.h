@@ -7,10 +7,10 @@ const float WIDTH = 640;		//Screen width
 const float HEIGHT = 480;		//Screen height
 const float BORDER = 20;		//Screen border size
 
-const float XPLU = 1.0;			//X coord plus  (Ex: 4)
-const float XMIN = -1.0;		//X coord minus (Ex: -5)
-const float YPLU = 1.0;			//Y coord plus
-const float YMIN = -1.0;		//Y coord minus
+const float XPLU = 0.5;			//X coord plus  (Ex: 4)
+const float XMIN = -0.5;		//X coord minus (Ex: -5)
+const float YPLU = 0.7;			//Y coord plus
+const float YMIN = -0.7;		//Y coord minus
 
 
 

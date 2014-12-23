@@ -21,8 +21,7 @@ public:
 	Game();
 
 	void runWindow();							//While window.isOpen etc
-	sf::RectangleShape newPlayer();				//The ball. Return value = player object
-	void newPlayer2();							//Same as above, just no return value (Testing)
+	void newPlayer();							//Same as above, just no return value (Testing)
 	void drawBorders();							//Playfield
 	void drawGame();							//Calls all the "draw" functions and renders the game
 	void draw(sf::RectangleShape sprite);		//Uses "RenderWindow window" to render a sprite. 
@@ -31,8 +30,9 @@ public:
 
 	void showCoord(sf::RectangleShape player);
 	void colDetectionForBorders(sf::RectangleShape, sf::RectangleShape, int num);			//Collision detection, special case just for the borders
-	bool intersects(const sf::RectangleShape &rect1, const sf::RectangleShape &rect2);
+	bool intersecting(const sf::RectangleShape &rect1, const sf::RectangleShape &rect2);
 
+	void testCollision();
 
 };
 

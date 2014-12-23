@@ -8,36 +8,29 @@ using namespace std;
 Game::Game() {
 	window.create(sf::VideoMode(WIDTH, HEIGHT), "Ping Pong");		//Initializes the video mode	
 	MainPlayer = sf::RectangleShape(sf::Vector2f(20, 30));			//Initialize MainPlayer with vector properties
+	newPlayer();													
 	playerSpeed.x = 0.5;
 	playerSpeed.y = 0.5;
 }
 
 
 
-void Game::runWindow() {
-	
-	
-	newPlayer2();
-	while (window.isOpen())
-    {	
-		userInput();
-	
+void Game::runWindow() {			
+	while (window.isOpen()) {	
+		userInput();	
         drawGame();					
-		window.display();
-		
+		window.display();		
 	}	
 }
 
 
 
 
-void Game::newPlayer2() {
-	
+void Game::newPlayer() {
 	MainPlayer.setOrigin(20, 30);
 	MainPlayer.setPosition(200, 400);
 	MainPlayer.setFillColor(sf::Color::Red);
 	cout << "Player is set up\n";
-
 }
 
 
@@ -68,13 +61,38 @@ void Game::drawBorders() {
 	right.setPosition(WIDTH-BORDER-5, 5);
 	right.setFillColor(sf::Color::Cyan); 
 
-	colDetectionForBorders(MainPlayer,  bottom, a);
-	colDetectionForBorders(MainPlayer,  top,    b);
-	colDetectionForBorders(MainPlayer,  left,   c);
-	colDetectionForBorders(MainPlayer,  right,  d);
+	//colDetectionForBorders(MainPlayer,  bottom, a);
+	//colDetectionForBorders(MainPlayer,  top,    b);
+	//colDetectionForBorders(MainPlayer,  left,   c);
+	//colDetectionForBorders(MainPlayer,  right,  d);
 
 
-	window.clear();				//Updates the screen after each full draw. IMPORTANT!!!
+
+	//MainPlayer collides with top border
+	if (top.getGlobalBounds().intersects(MainPlayer.getGlobalBounds())) {								//Need to fix this +20 crap. Don't understand why it doesn't work without it
+		MainPlayer.setPosition(MainPlayer.getPosition().x, top.getPosition().y + MainPlayer.getOrigin().y + 20);
+
+	}
+
+	//MainPlayer collides with bottom border
+	if (bottom.getGlobalBounds().intersects(MainPlayer.getGlobalBounds())) {
+		MainPlayer.setPosition(MainPlayer.getPosition().x, bottom.getPosition().y - MainPlayer.getOrigin().y + 30);
+		
+	}
+
+
+	//MainPlayer collides with left border
+	if (left.getGlobalBounds().intersects(MainPlayer.getGlobalBounds())) {
+		MainPlayer.setPosition((MainPlayer.getPosition().x - 19.5) + MainPlayer.getOrigin().x, MainPlayer.getPosition().y);
+	}
+
+	//MainPlayer collides with right border
+	if (right.getGlobalBounds().intersects(MainPlayer.getGlobalBounds())) {
+		MainPlayer.setPosition((MainPlayer.getPosition().x - 20.5) + MainPlayer.getOrigin().x, MainPlayer.getPosition().y);
+	}
+
+
+	window.clear();				
 	window.draw(bottom);
 	window.draw(top);
 	window.draw(left);
@@ -94,46 +112,35 @@ void Game::draw(sf::RectangleShape sprite) {
 }
 
 
-void Game::userInput() {
-	
-	
-
+void Game::userInput() {	
 	sf::Event event;
 	while (window.pollEvent(event)) {
 		if ((event.type == Event::Closed) ||												
 		   ((event.type == Event::KeyPressed) && (event.key.code == Keyboard::Escape)) )
-				window.close();			
-		
+				window.close();					
 		}
-
-		/*	
-		Moving shape up, down, left, right
-		http://www.sfml-dev.org/tutorials/2.0/graphics-transform.php
-		*/
-
-	
-	
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
 			MainPlayer.move(0, YMIN);
 			showCoord(MainPlayer);
 		}
-
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
 			MainPlayer.move(0, YPLU);
 			showCoord(MainPlayer);
 		}
-
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 			MainPlayer.move(XMIN, 0);
 			showCoord(MainPlayer);
 		}
-
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 			MainPlayer.move(XPLU, 0);
 			showCoord(MainPlayer);
 		}
 
 		
+/*
+Moving shape up, down, left, right
+http://www.sfml-dev.org/tutorials/2.0/graphics-transform.php
+*/
 
 }
 
@@ -145,7 +152,10 @@ void Game::showCoord(sf::RectangleShape player) {
 
 
 ////////////////////////////////////////////////////COLLISION DETECTION////////////////////////////////////////////////////
-bool Game::intersects(const sf::RectangleShape & rect1, const sf::RectangleShape & rect2) {
+
+
+
+bool Game::intersecting(const sf::RectangleShape & rect1, const sf::RectangleShape & rect2) {
 
 	FloatRect r1 = rect1.getGlobalBounds();
     FloatRect r2 = rect2.getGlobalBounds();
@@ -154,14 +164,16 @@ bool Game::intersects(const sf::RectangleShape & rect1, const sf::RectangleShape
 }
 
 
+//Alternative method of detecting collisions and moving the object to the appropriate location,
+// but is still using hardcoded values, bad. 
 void Game::colDetectionForBorders(sf::RectangleShape player, sf::RectangleShape obstacle, int num) { 
 	
 	
 	
-	if (intersects(player, obstacle)) {
-		if (num == 1) {			//Bottom side							So bad coding XD
+	if (intersecting(player, obstacle)) {
+		if (num == 1) {			//Bottom side							
 			playerSpeed.y = -playerSpeed.y;
-			MainPlayer.move(0, playerSpeed.y-2);
+			MainPlayer.move(0, playerSpeed.y - 2);
 		}
 		else if (num == 2) {	//Top side
 			playerSpeed.y = +playerSpeed.y;		
@@ -179,6 +191,8 @@ void Game::colDetectionForBorders(sf::RectangleShape player, sf::RectangleShape 
 			cout << "\nWrong number @ colDetection\n";		
 	}
 }
+
+
 
 
 
