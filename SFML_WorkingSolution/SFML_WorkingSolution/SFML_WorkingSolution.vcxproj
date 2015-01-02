@@ -13,10 +13,12 @@
   <ItemGroup>
     <ClInclude Include="..\..\Files\const.h" />
     <ClInclude Include="..\..\Files\Game.h" />
+    <ClInclude Include="..\..\Files\Player.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Files\Game.cpp" />
     <ClCompile Include="..\..\Files\main.cpp" />
+    <ClCompile Include="..\..\Files\Player.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{901F90A1-5ADC-4A4F-A285-1FFAC5C5B9F9}</ProjectGuid>
