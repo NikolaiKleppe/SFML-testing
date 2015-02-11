@@ -25,7 +25,6 @@ void Game::runWindow() {
 }
 
 
-
 void Game::drawBorders() {
 
 	/*4 borders*/
@@ -60,7 +59,6 @@ void Game::drawBorders() {
 }
 
 
-
 /* Draw anything that is always there. (Not moving) */
 void Game::drawGame() {
 	drawBorders();
@@ -73,7 +71,6 @@ void Game::drawGame() {
 void Game::draw(sf::RectangleShape sprite) {
 	window.draw(sprite);
 }
-
 
 
 void Game::userInput() {	
@@ -99,10 +96,6 @@ void Game::userInput() {
 }
 
 
-
-
-
-
 void Game::movePlayer(float x, float y) {
 	player->movePlayer(x, y);
 }
@@ -113,17 +106,7 @@ void Game::drawPlayer() {
 }
 
 
-
-
-
-
-
-
 ////////////////////////////////////////////////////COLLISION DETECTION////////////////////////////////////////////////////
-
-
-
-
 bool Game::intersecting(const sf::RectangleShape & rect1, const sf::RectangleShape & rect2) {
 	FloatRect r1 = rect1.getGlobalBounds();
 	FloatRect r2 = rect2.getGlobalBounds();
@@ -142,11 +125,6 @@ void Game::playerCollide(RectangleShape sprite, float xDir, float yDir) {
 		player->movePlayer(xDir, yDir);
 	}
 }
-
-
-
-
-
 
 
 /*

@@ -9,26 +9,12 @@
 Game *game;
 Player *player;
 
-
-
-
 int main() { 	
 	game = new Game;
 	player = new Player;
 	game->runWindow();
 	return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 /*	

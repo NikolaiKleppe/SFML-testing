@@ -13,9 +13,7 @@ class Player {
 protected:
 	//RenderWindow	playerWindow;		//?
 	RectangleShape	mainPlayer;
-
 	Vector2f		playerSpeed;
-
 
 public:
 	Player();			

@@ -18,9 +18,6 @@ Player::Player() {
 }
 
 
-
-
-
 void Player::newPlayer() {
 	mainPlayer.setOrigin(20, 30);
 	mainPlayer.setPosition(260, 250);
@@ -28,13 +25,9 @@ void Player::newPlayer() {
 }
 
 
-
-
 sf::RectangleShape Player::getPlayer() {
 	return mainPlayer;
 }
-
-
 
 
 /*	Improvement: use vectors to move the player instead of direct float values. */
