@@ -13,29 +13,24 @@ class Game {
 
 protected:
 	RenderWindow	window;
-	//RectangleShape	MainPlayer;				
-	//Vector2f		playerSpeed;
-	
+	Texture			pic;
 
 public:
 
 	Game();
 
-	void runWindow();							//While window.isOpen etc
-	/*void newPlayer();*/							
+	void runWindow();							//While window.isOpen etc					
 	void drawBorders();							//Playfield
 	void drawGame();							//Calls all the "draw" functions and renders the game
-	void draw(sf::RectangleShape sprite);		//Uses "RenderWindow window" to render a sprite. 
-	void userInput();							//Key Press etc
+	void drawPlayer();							//Retrieves data from player.cpp and draws it
+	void draw(sf::RectangleShape sprite);		//Draw a sprite
+	void userInput();							//General key pressing
 	void movePlayer(float x, float y);
 
 	void showCoord(sf::RectangleShape player);
-	/*void colDetectionForBorders(sf::RectangleShape, sf::RectangleShape, int num);*/			//Collision detection on borders
+	void playerCollide(RectangleShape sprite, float xDir, float yDir);	//Player collides with "sprite", move in direction X and Y. 
 	bool intersecting(const sf::RectangleShape &rect1, const sf::RectangleShape &rect2);
-
-	
 };
-
 
 
 

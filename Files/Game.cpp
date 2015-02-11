@@ -1,158 +1,116 @@
 #include "const.h"
 #include "Game.h"
+#include "Player.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
 using namespace std;
 
+extern Player *player;												//Borrow data from player.cpp
+
 Game::Game() {
-	window.create(sf::VideoMode(WIDTH, HEIGHT), "Ping Pong");		//Initializes the video mode	
-	//MainPlayer = sf::RectangleShape(sf::Vector2f(20, 30));			//Initialize MainPlayer with vector properties
-	//newPlayer();													
-	//playerSpeed.x = 0.5;
-	//playerSpeed.y = 0.5;
+	window.create(sf::VideoMode(WIDTH, HEIGHT), "Green dot vs The World");		//Initializes the video mode	
+									
+
 }
-
-
 
 
 void Game::runWindow() {			
 	while (window.isOpen()) {	
 		userInput();	
-		drawGame();					
+		drawGame();			
+		drawPlayer();
 		window.display();		
 	}	
 }
 
 
 
-
-//void Game::newPlayer() {
-//	MainPlayer.setOrigin(20, 30);
-//	MainPlayer.setPosition(200, 400);
-//	MainPlayer.setFillColor(sf::Color::Red);
-//	cout << "Player is set up\n";
-//}
-
-
-
 void Game::drawBorders() {
-	//Bottom
+
+	/*4 borders*/
 	sf::RectangleShape bottom(sf::Vector2f(WIDTH-2*BORDER, BORDER));
 	bottom.setPosition(BORDER, HEIGHT-BORDER-5);
 	bottom.setFillColor(sf::Color::Cyan);
 
-
-	//Top
 	sf::RectangleShape top(sf::Vector2f(WIDTH-2*BORDER, BORDER));
 	top.setPosition(BORDER, 5);
 	top.setFillColor(sf::Color::Cyan); 
 
-	//Left
 	sf::RectangleShape left(sf::Vector2f(BORDER, HEIGHT-10));
 	left.setPosition(5, 5);
 	left.setFillColor(sf::Color::Cyan); 
 
-	//Right
 	sf::RectangleShape right(sf::Vector2f(BORDER, HEIGHT-10));
 	right.setPosition(WIDTH-BORDER-5, 5);
 	right.setFillColor(sf::Color::Cyan); 
 
+	/*Set up collision for the borders*/
+	playerCollide(top,    0.0F,  0.1F);
+	playerCollide(bottom, 0.0F, -0.1F);
+	playerCollide(left,   0.1F,  0.0F);
+	playerCollide(right, -0.1F,  0.0F);
 
-	////MainPlayer collides with top border
-	////Need to fix this +20 crap. Won't work properly without it..? 
-	//if (top.getGlobalBounds().intersects(MainPlayer.getGlobalBounds())) {		
-	//	MainPlayer.setPosition(MainPlayer.getPosition().x, top.getPosition().y + MainPlayer.getOrigin().y + 20);
-
-	//}
-
-	////MainPlayer collides with bottom border
-	//if (bottom.getGlobalBounds().intersects(MainPlayer.getGlobalBounds())) {
-	//	MainPlayer.setPosition(MainPlayer.getPosition().x, bottom.getPosition().y - MainPlayer.getOrigin().y + 30);
-	//	
-	//}
-
-
-	////MainPlayer collides with left border
-	//if (left.getGlobalBounds().intersects(MainPlayer.getGlobalBounds())) {
-	//	MainPlayer.setPosition((MainPlayer.getPosition().x - 19.5) + MainPlayer.getOrigin().x, MainPlayer.getPosition().y);
-	//}
-
-	////MainPlayer collides with right border
-	//if (right.getGlobalBounds().intersects(MainPlayer.getGlobalBounds())) {
-	//	MainPlayer.setPosition((MainPlayer.getPosition().x - 20.5) + MainPlayer.getOrigin().x, MainPlayer.getPosition().y);
-	//}
-
-
+	
 	window.clear();				
-	window.draw(bottom);
-	window.draw(top);
-	window.draw(left);
-	window.draw(right);
+	draw(bottom);
+	draw(top);
+	draw(left);
+	draw(right);
 }
 
 
 
-
+/* Draw anything that is always there. (Not moving) */
 void Game::drawGame() {
 	drawBorders();
-	//window.draw(MainPlayer);
+
+
 
 }
 
+/* General purpose function to draw a sprite */
 void Game::draw(sf::RectangleShape sprite) {
 	window.draw(sprite);
 }
 
 
+
 void Game::userInput() {	
 	sf::Event event;
 	while (window.pollEvent(event)) {
-		if ((event.type == Event::Closed) ||												
-		   ((event.type == Event::KeyPressed) && (event.key.code == Keyboard::Escape)) )
-				window.close();					
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-			movePlayer(0, YMIN);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-			movePlayer(0, YPLU);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-			movePlayer(XMIN, 0);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-			movePlayer(XPLU, 0);
-		}
+		if ((event.type == Event::Closed) ||
+		   ((event.type == Event::KeyPressed) && (event.key.code == Keyboard::D)))			//Press D to close the game
+		   window.close();
+	}
 
-		
-
-
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+		movePlayer(0, YMIN);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+		movePlayer(0, YPLU);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+		movePlayer(XMIN, 0);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+		movePlayer(XPLU, 0);
+	}
 }
+
+
+
+
 
 
 void Game::movePlayer(float x, float y) {
-	Player *p1 = new Player;
-	sf::RectangleShape movingObject;
-	movingObject = p1->getPlayer();
-
-	
-	movingObject.move(x, y);
-//	showCoord(movingObject);
-
-}
-
-void Game::showCoord(sf::RectangleShape player) {
-	std::cout << "Current X-Position:  " << player.getPosition().x << "\n";
-	std::cout << "Current Y-Position:  " << player.getPosition().y << "\n\n";
+	player->movePlayer(x, y);
 }
 
 
-
-
-
-
-
+void Game::drawPlayer() {
+	draw(player->getPlayer());
+}
 
 
 
@@ -165,44 +123,58 @@ void Game::showCoord(sf::RectangleShape player) {
 
 
 
-bool Game::intersecting(const sf::RectangleShape & rect1, const sf::RectangleShape & rect2) {
 
+bool Game::intersecting(const sf::RectangleShape & rect1, const sf::RectangleShape & rect2) {
 	FloatRect r1 = rect1.getGlobalBounds();
 	FloatRect r2 = rect2.getGlobalBounds();
 	return r1.intersects (r2);
+}
+
+
+/*Very very basic collision detection on a sprite*/
+/* player->getPlayer(): returns the player's RectangleShape data*/
+
+//Problem: xDir and yDir has to be hardcoded in every function call
+//Fix: Change to 1 parameter, sprite, and use .setPosition(x, y) instead of moveplayer(x, y) where
+// setPosition is used  the same way as under "Old col Detection" right below. 
+void Game::playerCollide(RectangleShape sprite, float xDir, float yDir) {
+	if (sprite.getGlobalBounds().intersects(player->getPlayer().getGlobalBounds())) {
+		player->movePlayer(xDir, yDir);
+	}
+}
+
+
+
+
+
+
+
+/*
+Old col detection
+
+//MainPlayer collides with top border
+//Need to fix this +20 crap. Won't work properly without it..?
+
+if (top.getGlobalBounds().intersects(MainPlayer.getGlobalBounds())) {
+MainPlayer.setPosition(MainPlayer.getPosition().x, top.getPosition().y + MainPlayer.getOrigin().y + 20);
 
 }
 
 
-//Alternative method of detecting collisions and moving the object to the appropriate location,
-// but is still using hardcoded values, bad. 
-//void Game::colDetectionForBorders(sf::RectangleShape player, sf::RectangleShape obstacle, int num) { 
-//	
-//	
-//	
-//	if (intersecting(player, obstacle)) {
-//		if (num == 1) {			//Bottom side							
-//			playerSpeed.y = -playerSpeed.y;
-//			MainPlayer.move(0, playerSpeed.y - 2);
-//		}
-//		else if (num == 2) {	//Top side
-//			playerSpeed.y = +playerSpeed.y;		
-//			MainPlayer.move(0, playerSpeed.y + 2);
-//		}
-//		else if (num == 3) {	//Left side
-//			playerSpeed.x = -playerSpeed.x;
-//			MainPlayer.move(playerSpeed.x + 2, 0);
-//		}
-//		else if (num == 4) {	//Right side
-//			playerSpeed.x = +playerSpeed.x;
-//			MainPlayer.move(playerSpeed.x -2, 0);
-//		}
-//		else
-//			cout << "\nWrong number @ colDetection\n";		
-//	}
-//}
+//MainPlayer collides with bottom border
+if (bottom.getGlobalBounds().intersects(MainPlayer.getGlobalBounds())) {
+MainPlayer.setPosition(MainPlayer.getPosition().x, bottom.getPosition().y - MainPlayer.getOrigin().y + 30);
+
+}
 
 
+//MainPlayer collides with left border
+if (left.getGlobalBounds().intersects(MainPlayer.getGlobalBounds())) {
+MainPlayer.setPosition((MainPlayer.getPosition().x - 19.5) + MainPlayer.getOrigin().x, MainPlayer.getPosition().y);
+}
 
-
-
+//MainPlayer collides with right border
+if (right.getGlobalBounds().intersects(MainPlayer.getGlobalBounds())) {
+MainPlayer.setPosition((MainPlayer.getPosition().x - 20.5) + MainPlayer.getOrigin().x, MainPlayer.getPosition().y);
+}
+*/
