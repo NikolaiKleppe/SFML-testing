@@ -7,10 +7,14 @@
 using namespace std;
 
 extern Player *player;												//Borrow data from player.cpp
+sf::Font font;
+
+
 
 Game::Game() {
 	window.create(sf::VideoMode(WIDTH, HEIGHT), "Green dot vs The World");		//Initializes the video mode	
-									
+//	window.setFramerateLimit(60);
+	font.loadFromFile("../arial.ttf");											//Load font for text use
 
 }
 
@@ -29,7 +33,7 @@ void Game::drawBorders() {
 
 	/*4 borders*/
 	sf::RectangleShape bottom(sf::Vector2f(WIDTH-2*BORDER, BORDER));
-	bottom.setPosition(BORDER, HEIGHT-BORDER-5);
+	bottom.setPosition(BORDER, HEIGHT-BORDER-50);
 	bottom.setFillColor(sf::Color::Cyan);
 
 	sf::RectangleShape top(sf::Vector2f(WIDTH-2*BORDER, BORDER));
@@ -50,22 +54,47 @@ void Game::drawBorders() {
 	playerCollide(left,   0.1F,  0.0F);
 	playerCollide(right, -0.1F,  0.0F);
 
+
+
+
+
 	
 	window.clear();				
 	draw(bottom);
 	draw(top);
 	draw(left);
 	draw(right);
+
 }
 
 
 /* Draw anything that is always there. (Not moving) */
 void Game::drawGame() {
 	drawBorders();
-
+	drawHealthBar();
 
 
 }
+
+
+void Game::drawHealthBar() {
+	sf::Text text;
+	sf::RectangleShape bar(sf::Vector2f(250, 15));
+	
+	text.setFont(font);
+	text.setString("Health Bar:");
+	text.setCharacterSize(20);
+	text.setColor(sf::Color::Blue);
+	text.setPosition(30, 435);
+
+	bar.setPosition(140, 441.5);
+	bar.setFillColor(sf::Color::Red);
+
+
+	window.draw(text);
+	window.draw(bar);
+}
+
 
 /* General purpose function to draw a sprite */
 void Game::draw(sf::RectangleShape sprite) {
@@ -123,6 +152,8 @@ bool Game::intersecting(const sf::RectangleShape & rect1, const sf::RectangleSha
 void Game::playerCollide(RectangleShape sprite, float xDir, float yDir) {
 	if (sprite.getGlobalBounds().intersects(player->getPlayer().getGlobalBounds())) {
 		player->movePlayer(xDir, yDir);
+		//cout << "\nYOU HAVE COLLIDED, ubad!!!\n";
+		
 	}
 }
 

@@ -4,6 +4,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <stdio.h>
 #include "Player.h"
 
 using namespace sf;
@@ -22,6 +23,7 @@ public:
 	void runWindow();							//While window.isOpen etc					
 	void drawBorders();							//Playfield
 	void drawGame();							//Calls all the "draw" functions and renders the game
+	void drawHealthBar();
 	void drawPlayer();							//Retrieves data from player.cpp and draws it
 	void draw(sf::RectangleShape sprite);		//Draw a sprite
 	void userInput();							//General key pressing
