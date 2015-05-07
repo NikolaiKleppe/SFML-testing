@@ -11,16 +11,15 @@ using namespace sf;
 class Player {
 
 protected:
-	//RenderWindow	playerWindow;		//?
 	RectangleShape	mainPlayer;
 	Vector2f		playerSpeed;
 
 public:
 	Player();			
-	void newPlayer();					//Initialize a player (setPosition etc)
-	RectangleShape getPlayer();			//Returns the player object		
-	void movePlayer(float x, float y);
-	void showCoord(RectangleShape player);
+	void			newPlayer();						//Initialize a player (setPosition etc)
+	RectangleShape	getPlayer();						
+	void			movePlayer(float x, float y);
+	void			showCoord(RectangleShape player);
 	
 };
 

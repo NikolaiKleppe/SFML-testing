@@ -6,7 +6,7 @@
 
 using namespace std;
 
-extern Player *player;												//Borrow data from player.cpp
+extern Player *player;															//Borrow data from player.cpp
 sf::Font font;
 
 
@@ -56,9 +56,6 @@ void Game::drawBorders() {
 
 
 
-
-
-	
 	window.clear();				
 	draw(bottom);
 	draw(top);
@@ -71,29 +68,10 @@ void Game::drawBorders() {
 /* Draw anything that is always there. (Not moving) */
 void Game::drawGame() {
 	drawBorders();
-	drawHealthBar();
-
 
 }
 
 
-void Game::drawHealthBar() {
-	sf::Text text;
-	sf::RectangleShape bar(sf::Vector2f(250, 15));
-	
-	text.setFont(font);
-	text.setString("Health Bar:");
-	text.setCharacterSize(20);
-	text.setColor(sf::Color::Blue);
-	text.setPosition(30, 435);
-
-	bar.setPosition(140, 441.5);
-	bar.setFillColor(sf::Color::Red);
-
-
-	window.draw(text);
-	window.draw(bar);
-}
 
 
 /* General purpose function to draw a sprite */
@@ -136,54 +114,11 @@ void Game::drawPlayer() {
 
 
 ////////////////////////////////////////////////////COLLISION DETECTION////////////////////////////////////////////////////
-bool Game::intersecting(const sf::RectangleShape & rect1, const sf::RectangleShape & rect2) {
-	FloatRect r1 = rect1.getGlobalBounds();
-	FloatRect r2 = rect2.getGlobalBounds();
-	return r1.intersects (r2);
-}
 
-
-/*Very very basic collision detection on a sprite*/
-/* player->getPlayer(): returns the player's RectangleShape data*/
-
-//Problem: xDir and yDir has to be hardcoded in every function call
-//Fix: Change to 1 parameter, sprite, and use .setPosition(x, y) instead of moveplayer(x, y) where
-// setPosition is used  the same way as under "Old col Detection" right below. 
 void Game::playerCollide(RectangleShape sprite, float xDir, float yDir) {
 	if (sprite.getGlobalBounds().intersects(player->getPlayer().getGlobalBounds())) {
 		player->movePlayer(xDir, yDir);
-		//cout << "\nYOU HAVE COLLIDED, ubad!!!\n";
-		
 	}
 }
 
 
-/*
-Old col detection
-
-//MainPlayer collides with top border
-//Need to fix this +20 crap. Won't work properly without it..?
-
-if (top.getGlobalBounds().intersects(MainPlayer.getGlobalBounds())) {
-MainPlayer.setPosition(MainPlayer.getPosition().x, top.getPosition().y + MainPlayer.getOrigin().y + 20);
-
-}
-
-
-//MainPlayer collides with bottom border
-if (bottom.getGlobalBounds().intersects(MainPlayer.getGlobalBounds())) {
-MainPlayer.setPosition(MainPlayer.getPosition().x, bottom.getPosition().y - MainPlayer.getOrigin().y + 30);
-
-}
-
-
-//MainPlayer collides with left border
-if (left.getGlobalBounds().intersects(MainPlayer.getGlobalBounds())) {
-MainPlayer.setPosition((MainPlayer.getPosition().x - 19.5) + MainPlayer.getOrigin().x, MainPlayer.getPosition().y);
-}
-
-//MainPlayer collides with right border
-if (right.getGlobalBounds().intersects(MainPlayer.getGlobalBounds())) {
-MainPlayer.setPosition((MainPlayer.getPosition().x - 20.5) + MainPlayer.getOrigin().x, MainPlayer.getPosition().y);
-}
-*/

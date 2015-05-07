@@ -1,0 +1,89 @@
+//bool Game::intersecting(const sf::RectangleShape & rect1, const sf::RectangleShape & rect2) {
+//	FloatRect r1 = rect1.getGlobalBounds();
+//	FloatRect r2 = rect2.getGlobalBounds();
+//	return r1.intersects (r2);
+//}
+
+
+/*Very very basic collision detection on a sprite*/
+/* player->getPlayer(): returns the player's RectangleShape data*/
+
+//Problem: xDir and yDir has to be hardcoded in every function call
+//Fix: Change to 1 parameter, sprite, and use .setPosition(x, y) instead of moveplayer(x, y) where
+// setPosition is used  the same way as under "Old col Detection" right below. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Old col detection
+
+//MainPlayer collides with top border
+//Need to fix this +20 crap. Won't work properly without it..?
+
+if (top.getGlobalBounds().intersects(MainPlayer.getGlobalBounds())) {
+MainPlayer.setPosition(MainPlayer.getPosition().x, top.getPosition().y + MainPlayer.getOrigin().y + 20);
+
+}
+
+
+//MainPlayer collides with bottom border
+if (bottom.getGlobalBounds().intersects(MainPlayer.getGlobalBounds())) {
+MainPlayer.setPosition(MainPlayer.getPosition().x, bottom.getPosition().y - MainPlayer.getOrigin().y + 30);
+
+}
+
+
+//MainPlayer collides with left border
+if (left.getGlobalBounds().intersects(MainPlayer.getGlobalBounds())) {
+MainPlayer.setPosition((MainPlayer.getPosition().x - 19.5) + MainPlayer.getOrigin().x, MainPlayer.getPosition().y);
+}
+
+//MainPlayer collides with right border
+if (right.getGlobalBounds().intersects(MainPlayer.getGlobalBounds())) {
+MainPlayer.setPosition((MainPlayer.getPosition().x - 20.5) + MainPlayer.getOrigin().x, MainPlayer.getPosition().y);
+}
+
+
+
+
+
+MAIN:
+
+
+/*	
+http://riseagain.wordpress.com/2012/07/17/sfml-2-tutorial-pong/
+http://www.wildbunny.co.uk/blog/2011/04/06/physics-engines-for-dummies/	
+https://gist.github.com/anonymous/4444729
+//Collision detection with other objects (blocks)
+https://github.com/eXpl0it3r/Examples/blob/master/SFML/SimpleAABB.cpp
+
+
+Moving shape up, down, left, right
+http://www.sfml-dev.org/tutorials/2.0/graphics-transform.php
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+

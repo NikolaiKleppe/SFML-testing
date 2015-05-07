@@ -11,10 +11,6 @@ Player::Player() {
 	std::cout << "\nPlayer constructor\n";
 	mainPlayer = sf::RectangleShape(sf::Vector2f(20, 30));
 	newPlayer();
-//	playerSpeed.x = 0.5F;		
-//	playerSpeed.y = 0.5F;		
-
-
 }
 
 
@@ -30,11 +26,9 @@ sf::RectangleShape Player::getPlayer() {
 }
 
 
-/*	Improvement: use vectors to move the player instead of direct float values. */
+
 void Player::movePlayer(float x, float y) {	
 	mainPlayer.move(x, y);
-//	showCoord(mainPlayer);	//For debugging. NB: Slows the whole game down by quite a lot. xD
-
 }
 
 
