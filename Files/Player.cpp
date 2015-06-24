@@ -33,7 +33,7 @@ void Player::movePlayer(float x, float y) {
 
 
 /*Debugging function*/
-void Player::showCoord(sf::RectangleShape player) {
-	std::cout << "Current X-Position:  " << player.getPosition().x << "\n";
-	std::cout << "Current Y-Position:  " << player.getPosition().y << "\n\n";
+void Player::showCoord() {
+	std::cout << "Current X-Position:  " << mainPlayer.getPosition().x << "\n";
+	std::cout << "Current Y-Position:  " << mainPlayer.getPosition().y << "\n\n";
 }

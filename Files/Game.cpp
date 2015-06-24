@@ -2,82 +2,108 @@
 #include "Game.h"
 #include "Player.h"
 #include <iostream>
+#include <sstream>      // std::stringstream
 #include <SFML/Graphics.hpp>
 
 using namespace std;
 
-extern Player *player;															//Borrow data from player.cpp
-sf::Font font;
-
+extern Player *player;															
 
 
 Game::Game() {
-	window.create(sf::VideoMode(WIDTH, HEIGHT), "Green dot vs The World");		//Initializes the video mode	
-//	window.setFramerateLimit(60);
-	font.loadFromFile("../arial.ttf");											//Load font for text use
+	window.create(sf::VideoMode(WIDTH, HEIGHT), "Green dot vs The World");		
+	window.setVerticalSyncEnabled(true);
+	window.setFramerateLimit(FPS);
+
+	if (!font.loadFromFile("arial.ttf"))
+		cout << "\nError";
 
 }
 
 
-void Game::runWindow() {			
+void Game::runWindow() {		
+	
 	while (window.isOpen()) {	
-		userInput();	
-		drawGame();			
-		drawPlayer();
-		window.display();		
+
+		/*Makes the game run at 60fps*/
+		time = renderClock.getElapsedTime();
+		float fFps = 1000000 / time.asMicroseconds();
+		std::stringstream s;
+		s << fFps << " fps";				//Fungerer ikke? 
+		fps.setString(s.str());
+		renderClock.restart();
+
+		const int frameTime = 1000000 / FPS;
+		Clock c;
+		Time t = c.getElapsedTime();
+		int nextFrameTime = t.asMicroseconds() + frameTime;
+
+		int loops = 0;
+		while (t.asMicroseconds() < nextFrameTime && loops < MAX_FRAMESKIP)  {
+			userInput();
+			updateTime = updateClock.restart().asMilliseconds();
+			drawGame();
+			drawPlayer();
+			t = c.getElapsedTime();
+			loops++;
+		}
+		window.display();
 	}	
 }
 
 
-void Game::drawBorders() {
 
-	/*4 borders*/
-	sf::RectangleShape bottom(sf::Vector2f(WIDTH-2*BORDER, BORDER));
-	bottom.setPosition(BORDER, HEIGHT-BORDER-50);
-	bottom.setFillColor(sf::Color::Cyan);
-
-	sf::RectangleShape top(sf::Vector2f(WIDTH-2*BORDER, BORDER));
-	top.setPosition(BORDER, 5);
-	top.setFillColor(sf::Color::Cyan); 
-
-	sf::RectangleShape left(sf::Vector2f(BORDER, HEIGHT-10));
-	left.setPosition(5, 5);
-	left.setFillColor(sf::Color::Cyan); 
-
-	sf::RectangleShape right(sf::Vector2f(BORDER, HEIGHT-10));
-	right.setPosition(WIDTH-BORDER-5, 5);
-	right.setFillColor(sf::Color::Cyan); 
-
-	/*Set up collision for the borders*/
-	playerCollide(top,    0.0F,  0.1F);
-	playerCollide(bottom, 0.0F, -0.1F);
-	playerCollide(left,   0.1F,  0.0F);
-	playerCollide(right, -0.1F,  0.0F);
-
-
-
-	window.clear();				
-	draw(bottom);
-	draw(top);
-	draw(left);
-	draw(right);
-
+void Game::drawRectangle(sf::RectangleShape name, int r, int g, int b, int width, int height, int x, int y) {
+	sf::Color color(r, g, b);
+	name.setSize(sf::Vector2f(width, height));
+	name.setPosition(x, y);
+	name.setFillColor(color);
+	draw(name);
 }
 
 
-/* Draw anything that is always there. (Not moving) */
 void Game::drawGame() {
-	drawBorders();
+	window.clear();
 
+
+
+
+	//Borders
+	sf::RectangleShape	b1;
+	sf::RectangleShape	b2;
+	sf::RectangleShape	b3;
+
+	drawRectangle(b1, 100, 100, 100, B_WIDTH, B_HEIGHT, 20, 20);
+	drawRectangle(b2, 100, 100, 100, B_HEIGHT , B_WIDTH, 20, 470);
+	drawRectangle(b3, 100, 100, 100, B_HEIGHT, B_WIDTH, 20, 20);
+
+
+
+
+
+
+	
+	
+	
+
+	drawView();
+}
+
+
+void Game::drawView() {
+	sf::View view(sf::FloatRect(200, 200, 300, 200));
+	view.setSize(1200, 800);
+	view.setViewport(sf::FloatRect(0, 0, 1, 1));
+	window.setView(view);
 }
 
 
 
-
-/* General purpose function to draw a sprite */
 void Game::draw(sf::RectangleShape sprite) {
 	window.draw(sprite);
 }
+
+
 
 
 void Game::userInput() {	
@@ -100,17 +126,30 @@ void Game::userInput() {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 		movePlayer(XPLU, 0);
 	}
+
+
+	/* Debug: show fps*/
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)) {
+		player->showCoord();
+	}
+
+
 }
 
 
 void Game::movePlayer(float x, float y) {
 	player->movePlayer(x, y);
+	
 }
 
 
 void Game::drawPlayer() {
 	draw(player->getPlayer());
+
 }
+
+
+
 
 
 ////////////////////////////////////////////////////COLLISION DETECTION////////////////////////////////////////////////////
