@@ -8,7 +8,7 @@ const int   HEIGHT   = 480;			//Screen
 const float B_WIDTH  = 15;			//Border
 const float B_HEIGHT = 450;			//Border
 
-/*Move Speed of Player*/
+/*Move Speed of Player */
 const float XPLU     =  0.5F;		//X coord plus  
 const float XMIN     = -0.5F;		//X coord minus 
 const float YPLU     =  0.5F;		//Y coord plus
