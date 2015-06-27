@@ -13,12 +13,14 @@ class Player {
 protected:
 	RectangleShape	mainPlayer;
 	Vector2f		playerSpeed;
+	Texture			texture;
 
 public:
 	Player();			
 	void			newPlayer();						//Initialize a player (setPosition etc)
 	RectangleShape	getPlayer();						
 	void			movePlayer(float x, float y);
+	void			setPlayerPos(float x, float y);
 	void			showCoord();
 	
 };

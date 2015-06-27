@@ -1,3 +1,58 @@
+void Game::playerCollide2(RectangleShape sprite) {
+debug code
+
+right side
+			std::cout << "Right.x " << v_player.x - 1.0 << " < " << v_sprite.x << "\n";
+
+
+left side
+			std::cout << "Left.x " << v_player.x + (f_sprite.width) << " > " << v_sprite.x + f_sprite.width << "\n";
+            
+            
+top side
+			std::cout << "Top.y " << v_player.y - 2.0 << " < " << v_sprite.y + (f_sprite.height) << "\n";
+
+bot side
+			std::cout << " Bot.y " << v_player.y << " >= " << v_sprite.y + (f_sprite.height) << "\n";
+}
+
+
+
+
+void Game::playerCollide(RectangleShape sprite, float xDir, float yDir) {
+	sf::RectangleShape pp = player->getPlayer();
+	if (sprite.getGlobalBounds().intersects(pp.getGlobalBounds())) {
+		movePlayer(xDir, yDir);	
+        
+        
+    (Saving incase: super old:)
+        //	if (sprite.getGlobalBounds().intersects(player->getPlayer().getGlobalBounds())) {
+
+}
+
+
+
+iswindowopen
+		/*FPS timer, doesnt work o,o*/
+
+		//	Text			fps;						//FPS display
+		//	Time			time;						//FPS display
+		//	Clock			renderClock, updateClock;	//FPS display
+
+		//time = renderClock.getElapsedTime();
+		//float fFps = 1000000 / time.asMicroseconds();
+		//std::stringstream s;
+		//s << fFps << " fps";				
+		//fps.setString(s.str());
+		//renderClock.restart();
+
+
+
+
+
+        
+        
+        
 	/*Set up collision for the borders*/
 	//playerCollide(top,    0.0F,  0.1F);
 	//playerCollide(bottom, 0.0F, -0.1F);

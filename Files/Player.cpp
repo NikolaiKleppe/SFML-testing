@@ -9,12 +9,23 @@ extern Game *game;
 
 Player::Player() {
 	std::cout << "\nPlayer constructor\n";
-	mainPlayer = sf::RectangleShape(sf::Vector2f(20, 30));
+	mainPlayer = sf::RectangleShape(sf::Vector2f(50, 30));
 	newPlayer();
+
+
+
+
 }
 
 
 void Player::newPlayer() {
+
+	
+	texture.loadFromFile("../../files/texture/snipar.jpg");
+
+	mainPlayer.setTexture(&texture);
+
+
 	mainPlayer.setOrigin(20, 30);
 	mainPlayer.setPosition(260, 250);
 	mainPlayer.setFillColor(sf::Color::Green);
@@ -31,6 +42,10 @@ void Player::movePlayer(float x, float y) {
 	mainPlayer.move(x, y);
 }
 
+
+void Player::setPlayerPos(float x, float y) {
+	mainPlayer.setPosition(x, y);
+}
 
 /*Debugging function*/
 void Player::showCoord() {

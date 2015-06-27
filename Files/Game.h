@@ -14,32 +14,30 @@ class Game {
 
 protected:
 	RenderWindow	window;
-	Texture			pic;
-
-
-
+//	Texture			texture;
 	Font			font;
-	Text			fps;						//FPS display
-	Time			time;						//FPS display
-	Clock			renderClock, updateClock;	//FPS display
-	int				updateTime;					//FPS display
+	Int64			updateTime;					//60fps
+	Clock			updateClock;				//60fps
+
 
 public:
 
 	Game();
 
-	void runWindow();							//While window.isOpen etc	
-	void drawRectangle(sf::RectangleShape name, int r, int g, int b, int width, int height, int x, int y);
-	void drawGame();							//Calls all the "draw" functions and renders the game
-	void drawView();
-	void drawPlayer();							//Retrieves data from player.cpp and draws it
-	void draw(sf::RectangleShape sprite);		//Draw a sprite
-
-	void userInput();							//General key pressing
+	void runWindow();							
+	void drawRectangle(sf::RectangleShape name, int r, int g, int b, float r_width, float r_height, float x, float y);
+	void drawGame();							
+	void drawView();							//How big the visible field is in res
+	void drawPlayer();							
+	void draw(sf::RectangleShape sprite);		
+	void userInput();							
 	void movePlayer(float x, float y);
+	void setPlayerPos(float x, float y);
 
-	//void showCoord2(sf::RectangleShape player);
-	void playerCollide(RectangleShape sprite, float xDir, float yDir);	//Player collides with "sprite", move in direction X and Y. 
+	void playerCollide(RectangleShape sprite, float xDir, float yDir);
+	void playerCollide2(RectangleShape sprite);
+	float clamp(const float x, const float a, const float b);
+	bool b_intersects(const RectangleShape &rect1, const RectangleShape &rect2);
 };
 
 
