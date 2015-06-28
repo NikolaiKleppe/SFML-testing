@@ -168,6 +168,9 @@ void Game::playerCollide2(RectangleShape sprite) {
 	sf::RectangleShape pp = player->getPlayer();
 
 	if (b_intersects(pp, sprite)) {
+
+		FloatRect f_player = pp.getGlobalBounds();
+
 		FloatRect f_sprite = sprite.getGlobalBounds();		//The block to collide with
 		Vector2f  v_sprite = sprite.getPosition();			//The block position
 		Vector2f  v_player = pp.getPosition();				//The player position
@@ -176,7 +179,9 @@ void Game::playerCollide2(RectangleShape sprite) {
 		/* TODO: Fix the random values*/
 
 		/* Sprite hit from right side */
-		if ((v_player.x - 1.0) < v_sprite.x) {
+		/* A bit different: uses f_player.height. Makes more sense
+		   but cant get it working for the other functions */
+		if ((v_player.x - 1.0) < v_sprite.x - f_player.height) {
 			movePlayer(-1.0, 0.0);
 		}
 

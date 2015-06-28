@@ -1,3 +1,34 @@
+void Game::playerCOllide2. .. . 
+/* WORKS */
+		/* TODO: Fix the random values*/
+
+		/* Sprite hit from right side */
+		/* A bit different: uses f_player.height. Makes more sense
+		   but cant get it working for the other functions */
+		if ((v_player.x - 1.0) < v_sprite.x - f_player.height) {
+			movePlayer(-1.0, 0.0);
+		}
+
+
+		/* Sprite hit from left side */
+		else if ((v_player.x - 18) > v_sprite.x + (f_sprite.width)) {
+			movePlayer(1, 0.0);
+		}
+
+
+		/* Sprite hit from top side */
+		else if (v_player.y <= v_sprite.y + (f_sprite.height)) {
+			movePlayer(0.0, -1.0);
+		}
+
+		
+		/* Sprite hit from bot side*/
+		else if (v_player.y >= v_sprite.y + (f_sprite.height)) {
+			movePlayer(0.0, 1.0);				
+
+		}
+
+
 void Game::playerCollide2(RectangleShape sprite) {
 debug code
 
