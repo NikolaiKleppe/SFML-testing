@@ -1,22 +1,33 @@
 #if !defined(__CONST_H)
 #define __CONST_H
 
-
+#include <SFML/Graphics.hpp>
 
 const int   WIDTH    = 640;			//Screen 
 const int   HEIGHT   = 480;			//Screen 
 const float B_WIDTH  = 15;			//Border
 const float B_HEIGHT = 450;			//Border
 
-/*Move Speed of Player */
-const float XPLU     =  0.5F;		//X coord plus  
-const float XMIN     = -0.5F;		//X coord minus 
-const float YPLU     =  0.5F;		//Y coord plus
-const float YMIN     = -0.5F;		//Y coord minus
 
 
 const int	FPS      = 60;
 const int  FRAMESKIP = 10;
 
+
+
+/* testing */
+
+
+
+static int jumpcounter = 0;
+const float maxFall  = 0.5F;				//Max fall velocity
+const float runAcc   = 0.001F;				//Running acceleration
+const float jumpAcc  = -0.05F;				//Jump acceleration
+const float maxSpeed = 0.3F;
+
+static sf::Vector2f vel(0.f, 0.f);
+static sf::Vector2f gravity(0.f, 0.003f);
+
+const int jumpframes = 10;					//Number of frames to accelerate in
 
 #endif

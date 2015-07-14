@@ -15,9 +15,6 @@ Game::Game() {
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(FPS);
 
-//	font.loadFromFile("../../files/font/arial2.ttf");
-	
-
 
 
 }
@@ -25,6 +22,8 @@ Game::Game() {
 
 void Game::runWindow() {		
 	
+
+
 	while (window.isOpen()) {	
 
 
@@ -77,10 +76,12 @@ void Game::drawGame() {
 	//Blocks
 	sf::RectangleShape  block;
 
+
+
 	drawRectangle(b1, 200, 100, 100, B_WIDTH, 200, 20, 20);
-	drawRectangle(b2, 150, 320, 140, B_HEIGHT , B_WIDTH, 20, 470);
+	drawRectangle(b2, 150, 320, 140, B_HEIGHT*5 , B_WIDTH, 20, 470);
 	drawRectangle(b3, 100, 100, 100, B_HEIGHT, B_WIDTH, 20, 20);
-	drawRectangle(block, 50, 30, 30, 80, 80, 90, 90);
+	drawRectangle(block, 50, 30, 30, 80, 80, 300, 420);
 
 
 
@@ -95,8 +96,20 @@ void Game::drawGame() {
 
 void Game::drawView() {
 	sf::View view(sf::FloatRect(200, 200, 300, 200));
+	sf::RectangleShape pp = player->getPlayer();
+	sf::Vector2f player_pos = pp.getPosition();
+
 	view.setSize(1200, 800);
 	view.setViewport(sf::FloatRect(0, 0, 1, 1));
+	view.setCenter(260, 250);
+	
+	/* Player moves out of screen region, move the view*/
+	/* Exits right border*/
+	if (player_pos.x >= 830) {
+		view.move(1190, 0);
+	}
+
+	
 	window.setView(view);
 }
 
@@ -117,26 +130,65 @@ void Game::userInput() {
 		   window.close();
 	}
 
+
+	 sf::Vector2f pos = player->getPlayer().getPosition();
+	 sf::RectangleShape pp = player->getPlayer();
+	 const bool onground = pos.y >= 469;	//Update later to use blocks 
+
+	 vel += gravity;
+	 movePlayer(0.0, vel.y);
+
+	if (vel.y > maxFall) {
+		vel.y = maxFall;
+	}
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-		movePlayer(0, YMIN);
+		if (onground) {						//Onground -> initial jumping acceleration is increased
+			vel.y += jumpAcc * 2;
+			jumpcounter = jumpframes;		//Reset the jumpcounter to 10 when player hits ground
+			movePlayer(0.0, vel.y);
+		}
+
+		else if (jumpcounter > 0) {			//Player is in the air, because Up was pressed from the ground
+			vel.y += jumpAcc;				
+			jumpcounter--;					//Decrease to 0 to exit loop
+			movePlayer(0.0, vel.y);
+		}
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-		movePlayer(0, YPLU);
-	}
+	
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-		movePlayer(XMIN, 0);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-		movePlayer(XPLU, 0);
-	}
+		vel.x -= runAcc;
+		movePlayer(vel.x, 0.0);
 
-
-	/* Debug: show coodinate*/
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)) {
-		player->showCoord();
 	}
 
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+		vel.x += runAcc;
+		movePlayer(vel.x, 0.0);
+	}
 
+	
+	else 								// No button press, de-accelerate player
+		vel.x *= 0.992;
+		movePlayer(vel.x, 0.0);
+		std::cout << vel.x << "\n";
+		
+
+
+
+		/* Limits acceleration */
+		if (vel.x > maxSpeed){
+			vel.x = maxSpeed;
+		}
+		else if (vel.x < -maxSpeed) {
+			vel.x = -maxSpeed;
+		}
+
+		///* Debug: show coodinate*/
+		//if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)) {
+		//	player->showCoord();
+		//}
 }
 
 
@@ -183,27 +235,30 @@ void Game::playerCollide2(RectangleShape sprite) {
 		   but cant get it working for the other functions */
 		if ((v_player.x - 1.0) < v_sprite.x - f_player.height) {
 			movePlayer(-1.0, 0.0);
+			
 		}
 
 
 		/* Sprite hit from left side */
 		else if ((v_player.x - 18) > v_sprite.x + (f_sprite.width)) {
 			movePlayer(1, 0.0);
+
 		}
 
 
 		/* Sprite hit from top side */
 		else if (v_player.y <= v_sprite.y + (f_sprite.height)) {
 			movePlayer(0.0, -1.0);
+
 		}
 
 		
 		/* Sprite hit from bot side*/
 		else if (v_player.y >= v_sprite.y + (f_sprite.height)) {
-			movePlayer(0.0, 1.0);				
-
+			movePlayer(0.0, 1.0);	
 		}
 	}
+
 }
 
 
