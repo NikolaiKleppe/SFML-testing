@@ -15,19 +15,21 @@ const int  FRAMESKIP = 10;
 
 
 
-/* testing */
-
-
-
 static int jumpcounter = 0;
 const float maxFall  = 0.5F;				//Max fall velocity
 const float runAcc   = 0.001F;				//Running acceleration
 const float jumpAcc  = -0.05F;				//Jump acceleration
-const float maxSpeed = 0.3F;
+const float maxSpeed = 0.30F;
+const float maxAcc = -0.1;
 
 static sf::Vector2f vel(0.f, 0.f);
 static sf::Vector2f gravity(0.f, 0.003f);
 
 const int jumpframes = 10;					//Number of frames to accelerate in
+
+
+static bool hitGround = false;
+static bool hitSidesOrBelow = false;
+static float hitTimer = 5.0;
 
 #endif

@@ -74,18 +74,17 @@ void Game::drawGame() {
 	sf::RectangleShape	b3;
 
 	//Blocks
-	sf::RectangleShape  block;
+	sf::RectangleShape  block1, block2, block3, block4, block5;
 
-
-
-	drawRectangle(b1, 200, 100, 100, B_WIDTH, 200, 20, 20);
-	drawRectangle(b2, 150, 320, 140, B_HEIGHT*5 , B_WIDTH, 20, 470);
-	drawRectangle(b3, 100, 100, 100, B_HEIGHT, B_WIDTH, 20, 20);
-	drawRectangle(block, 50, 30, 30, 80, 80, 300, 420);
-
-
-
-
+	//                                    w   h     x    y
+	drawRectangle(b1,    200, 100, 100,   15, 200,  20,  20);
+	drawRectangle(b2,    150, 320, 140, 2250,  15,  20, 470);
+	drawRectangle(b3,    100, 100, 100,  450,  15,  20,  20);
+	drawRectangle(block1, 50,  30,  30,   80,  50, 300, 420);
+	drawRectangle(block2, 50,  30,  30,   80,  80, 500, 350);
+	drawRectangle(block3, 50,  30,  30,   80,  50, 350, 250);
+	drawRectangle(block4, 50,  30,  30,   80,  50, 500, 150);
+	drawRectangle(block5, 50,  30,  30,   80,  50, 600, 100);
 	
 	
 	
@@ -126,15 +125,14 @@ void Game::userInput() {
 	sf::Event event;
 	while (window.pollEvent(event)) {
 		if ((event.type == Event::Closed) ||
-		   ((event.type == Event::KeyPressed) && (event.key.code == Keyboard::D)))			//Press D to close the game
+		   ((event.type == Event::KeyPressed) && (event.key.code == Keyboard::D)))		
 		   window.close();
 	}
 
 
 	 sf::Vector2f pos = player->getPlayer().getPosition();
 	 sf::RectangleShape pp = player->getPlayer();
-	 const bool onground = pos.y >= 469;	//Update later to use blocks 
-
+	 
 	 vel += gravity;
 	 movePlayer(0.0, vel.y);
 
@@ -142,17 +140,35 @@ void Game::userInput() {
 		vel.y = maxFall;
 	}
 
+	/* Stops a bug where player will accelerate too much when hitting blocks from the side*/
+	if ((vel.y < maxAcc) && (hitSidesOrBelow == true)) {
+		vel.y = maxAcc;
+	}
+	else {
+		hitSidesOrBelow = false;
+	}
+
+
+
+	
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-		if (onground) {						//Onground -> initial jumping acceleration is increased
+		if (hitGround == true) {					//Onground -> initial jumping acceleration is increased
 			vel.y += jumpAcc * 2;
-			jumpcounter = jumpframes;		//Reset the jumpcounter to 10 when player hits ground
+			jumpcounter = jumpframes;				//Reset the jumpcounter to 10 when player hits ground
 			movePlayer(0.0, vel.y);
+
+			hitTimer *= 0.9;						//While in air, decrease value
+			if (hitTimer < 2.2) {					//It's time to stop player acceleration
+				hitGround = false;					//Break out of main loop
+			}
 		}
 
-		else if (jumpcounter > 0) {			//Player is in the air, because Up was pressed from the ground
+		else if (jumpcounter > 0) {					//>0 means player is in the air
 			vel.y += jumpAcc;				
-			jumpcounter--;					//Decrease to 0 to exit loop
+			jumpcounter--;							//Decrease to 0 to exit loop
 			movePlayer(0.0, vel.y);
+			hitTimer = 5.0;							//Player is in the air, reset the timer. 
 		}
 	}
 	
@@ -169,15 +185,13 @@ void Game::userInput() {
 	}
 
 	
-	else 								// No button press, de-accelerate player
+	else 											// No button press, de-accelerate player
 		vel.x *= 0.992;
 		movePlayer(vel.x, 0.0);
-		std::cout << vel.x << "\n";
-		
 
 
 
-		/* Limits acceleration */
+		/* Limits acceleration (left and right) */
 		if (vel.x > maxSpeed){
 			vel.x = maxSpeed;
 		}
@@ -219,45 +233,48 @@ void Game::playerCollide(RectangleShape sprite, float xDir, float yDir) {
 void Game::playerCollide2(RectangleShape sprite) {
 	sf::RectangleShape pp = player->getPlayer();
 
-	if (b_intersects(pp, sprite)) {
 
+	if (b_intersects(pp, sprite)) {							//Player has hit a block
+										
 		FloatRect f_player = pp.getGlobalBounds();
 
 		FloatRect f_sprite = sprite.getGlobalBounds();		//The block to collide with
 		Vector2f  v_sprite = sprite.getPosition();			//The block position
 		Vector2f  v_player = pp.getPosition();				//The player position
-		
+
 
 		/* TODO: Fix the random values*/
 
 		/* Sprite hit from right side */
 		/* A bit different: uses f_player.height. Makes more sense
-		   but cant get it working for the other functions */
+		but cant get it working for the other functions */
 		if ((v_player.x - 1.0) < v_sprite.x - f_player.height) {
 			movePlayer(-1.0, 0.0);
-			
+			hitSidesOrBelow = true;
 		}
 
 
 		/* Sprite hit from left side */
 		else if ((v_player.x - 18) > v_sprite.x + (f_sprite.width)) {
 			movePlayer(1, 0.0);
-
+			hitSidesOrBelow = true;
 		}
 
 
 		/* Sprite hit from top side */
 		else if (v_player.y <= v_sprite.y + (f_sprite.height)) {
 			movePlayer(0.0, -1.0);
-
+			hitGround       = true;
 		}
 
-		
+
 		/* Sprite hit from bot side*/
 		else if (v_player.y >= v_sprite.y + (f_sprite.height)) {
-			movePlayer(0.0, 1.0);	
+			movePlayer(0.0, 1.0);
+			hitSidesOrBelow = true;
 		}
 	}
+
 
 }
 
