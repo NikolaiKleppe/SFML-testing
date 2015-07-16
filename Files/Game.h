@@ -12,18 +12,22 @@ using namespace sf;
 
 class Game {
 
-protected:
+private:
 	RenderWindow	window;
 	Texture			texture;
 	Font			font;
 	Int64			updateTime;					//60fps
 	Clock			updateClock;				//60fps
+	Event			event;						//Main event for userInput
+
+	RectangleShape b1, b2, b3;
+	RectangleShape block1, block2, block3, block4, block5;
 
 
 public:
 
 	Game();
-
+	~Game();
 	void runWindow();							
 	void drawRectangle(sf::RectangleShape name, int r, int g, int b, float r_width, float r_height, float x, float y);
 	void drawGame();							

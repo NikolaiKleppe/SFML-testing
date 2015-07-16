@@ -10,7 +10,7 @@ using namespace sf;
 
 class Player {
 
-protected:
+private:
 	RectangleShape	mainPlayer;
 	Vector2f		playerSpeed;
 	Texture			texture;
