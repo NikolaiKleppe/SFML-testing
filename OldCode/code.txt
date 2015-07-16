@@ -49,24 +49,6 @@ void Game::playerCOllide2. .. .
 		}
 
 
-void Game::playerCollide2(RectangleShape sprite) {
-debug code
-
-right side
-			std::cout << "Right.x " << v_player.x - 1.0 << " < " << v_sprite.x << "\n";
-
-
-left side
-			std::cout << "Left.x " << v_player.x + (f_sprite.width) << " > " << v_sprite.x + f_sprite.width << "\n";
-            
-            
-top side
-			std::cout << "Top.y " << v_player.y - 2.0 << " < " << v_sprite.y + (f_sprite.height) << "\n";
-
-bot side
-			std::cout << " Bot.y " << v_player.y << " >= " << v_sprite.y + (f_sprite.height) << "\n";
-}
-
 
 
 
@@ -102,37 +84,6 @@ iswindowopen
 
 
         
-        
-        
-	/*Set up collision for the borders*/
-	//playerCollide(top,    0.0F,  0.1F);
-	//playerCollide(bottom, 0.0F, -0.1F);
-	//playerCollide(left,   0.1F,  0.0F);
-//	playerCollide(right, -0.1F,  0.0F);
-
-
-
-
-
-
-
-
-
-
-
-//bool Game::intersecting(const sf::RectangleShape & rect1, const sf::RectangleShape & rect2) {
-//	FloatRect r1 = rect1.getGlobalBounds();
-//	FloatRect r2 = rect2.getGlobalBounds();
-//	return r1.intersects (r2);
-//}
-
-
-/*Very very basic collision detection on a sprite*/
-/* player->getPlayer(): returns the player's RectangleShape data*/
-
-//Problem: xDir and yDir has to be hardcoded in every function call
-//Fix: Change to 1 parameter, sprite, and use .setPosition(x, y) instead of moveplayer(x, y) where
-// setPosition is used  the same way as under "Old col Detection" right below. 
 
 
 
@@ -147,41 +98,6 @@ iswindowopen
 
 
 
-
-
-Old col detection
-
-//MainPlayer collides with top border
-//Need to fix this +20 crap. Won't work properly without it..?
-
-if (top.getGlobalBounds().intersects(MainPlayer.getGlobalBounds())) {
-MainPlayer.setPosition(MainPlayer.getPosition().x, top.getPosition().y + MainPlayer.getOrigin().y + 20);
-
-}
-
-
-//MainPlayer collides with bottom border
-if (bottom.getGlobalBounds().intersects(MainPlayer.getGlobalBounds())) {
-MainPlayer.setPosition(MainPlayer.getPosition().x, bottom.getPosition().y - MainPlayer.getOrigin().y + 30);
-
-}
-
-
-//MainPlayer collides with left border
-if (left.getGlobalBounds().intersects(MainPlayer.getGlobalBounds())) {
-MainPlayer.setPosition((MainPlayer.getPosition().x - 19.5) + MainPlayer.getOrigin().x, MainPlayer.getPosition().y);
-}
-
-//MainPlayer collides with right border
-if (right.getGlobalBounds().intersects(MainPlayer.getGlobalBounds())) {
-MainPlayer.setPosition((MainPlayer.getPosition().x - 20.5) + MainPlayer.getOrigin().x, MainPlayer.getPosition().y);
-}
-
-
-
-
-
-MAIN:
 
 
 /*	

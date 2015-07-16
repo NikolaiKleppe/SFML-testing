@@ -14,7 +14,7 @@ class Game {
 
 private:
 	RenderWindow	window;
-	Texture			texture;
+	Texture			texture, texture2;
 	Font			font;
 	Int64			updateTime;					//60fps
 	Clock			updateClock;				//60fps

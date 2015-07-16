@@ -17,7 +17,8 @@ Game::Game() {
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(FPS);
 
-
+	if (!texture2.loadFromFile("../../files/texture/sand.png")) {
+	}
 }
 
 
@@ -46,12 +47,19 @@ void Game::runWindow() {
 
 
 void Game::drawRectangle(sf::RectangleShape name, int r, int g, int b, float r_width, float r_height, float x, float y) {
+
 	sf::Color color(r, g, b);
 	name.setSize(sf::Vector2f(r_width, r_height));
 	name.setPosition(x, y);
 	name.setFillColor(color);
 	draw(name);
 	playerCollide2(name);
+
+
+
+
+	
+
 }
 
 
@@ -69,7 +77,11 @@ void Game::drawGame() {
 	drawRectangle(block4, 50,  30,  30,   80,  50, 500, 150);
 	drawRectangle(block5, 50,  30,  30,   80,  50, 600, 100);
 	
-
+	block1.setTexture(&texture2);
+	block2.setTexture(&texture2);
+	block3.setTexture(&texture2);
+	block4.setTexture(&texture2);
+	block5.setTexture(&texture2);
 
 	drawView();
 }
@@ -117,38 +129,37 @@ void Game::userInput() {
 	sf::RectangleShape pp  = player->getPlayer();
 	sf::Vector2f vel	   = gv->setupGravity();
 
-	movePlayer(0.0, vel.y);
+	
 
+	movePlayer(0.0, vel.y);							//Up-Down
+	movePlayer(vel.x, 0.0);							//Left-Right
 
+	
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
 		vel = gv->isOnGround();
-		movePlayer(0.0, vel.y);
 	}
 	
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 		vel = gv->movingLeft();
-		movePlayer(vel.x, 0.0);
-
 	}
 
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 		vel = gv->movingRight();
-		movePlayer(vel.x, 0.0);
 	}
-
 
 	else 											// No button press, de-accelerate player
 		vel = gv->deAccelerate();
 		gv->limitAcceleration();
-		movePlayer(vel.x, 0.0);
+		
 
 
-		///* Debug: show coodinate*/
-		//if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)) {
+		/* Debug: show coodinate*/
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)) {
 		//	player->showCoord();
-		//}
+			gv->printVelocity();
+		}
 
 	
 }
