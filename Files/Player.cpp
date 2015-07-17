@@ -11,21 +11,16 @@ Player::Player() {
 	std::cout << "\nPlayer constructor\n";
 	mainPlayer = sf::RectangleShape(sf::Vector2f(50, 30));
 	newPlayer();
+	loadTextures();
+}
 
-
-
-
+void Player::loadTextures() {
+	texture.loadFromFile("../../files/texture/snipar.jpg");
+	mainPlayer.setTexture(&texture);
 }
 
 
 void Player::newPlayer() {
-
-	
-	texture.loadFromFile("../../files/texture/snipar.jpg");
-
-	mainPlayer.setTexture(&texture);
-
-
 	mainPlayer.setOrigin(20, 30);
 	mainPlayer.setPosition(260, 250);
 	mainPlayer.setFillColor(sf::Color::Green);

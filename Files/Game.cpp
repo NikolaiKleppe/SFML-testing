@@ -16,11 +16,12 @@ Game::Game() {
 	window.create(sf::VideoMode(WIDTH, HEIGHT), "Green dot vs The World");
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(FPS);
-
-	if (!texture2.loadFromFile("../../files/texture/sand.png")) {
-	}
+	loadTextures();
 }
 
+void Game::loadTextures() {
+	texture2.loadFromFile("../../files/texture/ground.png");
+}
 
 void Game::runWindow() {	
 	while (window.isOpen()) {	
@@ -46,20 +47,11 @@ void Game::runWindow() {
 
 
 
-void Game::drawRectangle(sf::RectangleShape name, int r, int g, int b, float r_width, float r_height, float x, float y) {
-
-	sf::Color color(r, g, b);
+void Game::drawRectangle(sf::RectangleShape name, float r_width, float r_height, float x, float y) {
 	name.setSize(sf::Vector2f(r_width, r_height));
 	name.setPosition(x, y);
-	name.setFillColor(color);
 	draw(name);
 	playerCollide2(name);
-
-
-
-
-	
-
 }
 
 
@@ -67,21 +59,24 @@ void Game::drawGame() {
 	window.clear();
 
 
-	//                                    w   h     x    y
-	drawRectangle(b1,    200, 100, 100,   15, 200,  20,  20);
-	drawRectangle(b2,    150, 320, 140, 2250,  15,  20, 470);
-	drawRectangle(b3,    100, 100, 100,  450,  15,  20,  20);
-	drawRectangle(block1, 50,  30,  30,   80,  50, 300, 420);
-	drawRectangle(block2, 50,  30,  30,   80,  80, 500, 350);
-	drawRectangle(block3, 50,  30,  30,   80,  50, 350, 250);
-	drawRectangle(block4, 50,  30,  30,   80,  50, 500, 150);
-	drawRectangle(block5, 50,  30,  30,   80,  50, 600, 100);
+	//                        w      h     x      y
+	drawRectangle(b1,        15,   200,    20,    20);
+	drawRectangle(b2,      2250,    15,    20,   470);
+	drawRectangle(b3,       450,    15,    20,    20);
+	drawRectangle(block1,    80,    50,   300,   420);
+	drawRectangle(block2,    80,    80,   500,   350);
+	drawRectangle(block3,    80,    50,   350,   250);
+	drawRectangle(block4,    80,    50,   500,   150);
+	drawRectangle(block5,    80,    50,   600,   100);
 	
 	block1.setTexture(&texture2);
 	block2.setTexture(&texture2);
 	block3.setTexture(&texture2);
 	block4.setTexture(&texture2);
 	block5.setTexture(&texture2);
+
+	
+
 
 	drawView();
 }

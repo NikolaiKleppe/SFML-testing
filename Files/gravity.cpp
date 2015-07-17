@@ -31,33 +31,29 @@ Gravity::Gravity(int jC, const float mF, const float rA, const float jA, const f
 
 
 
-	std::cout << "JumpCounter        "			<< jumpCounter << "\n";
-	std::cout << "maxFall            "			<< maxFall << "\n";
-	std::cout << "runAcc             "			<< runAcc << "\n";
-	std::cout << "jumpAcc            "			<< jumpAcc << "\n";
-	std::cout << "maxJumpSpeed       "			<< maxJumpSpeed << "\n";
-	std::cout << "maxYSpeed          "			<< maxYSpeed << "\n";
-	std::cout << "maxAcc             "			<< maxAcc << "\n";
+	std::cout << "JumpCounter        "			<< jumpCounter		<< "\n";
+	std::cout << "maxFall            "			<< maxFall			<< "\n";
+	std::cout << "runAcc             "			<< runAcc			<< "\n";
+	std::cout << "jumpAcc            "			<< jumpAcc			<< "\n";
+	std::cout << "maxJumpSpeed       "			<< maxJumpSpeed		<< "\n";
+	std::cout << "maxYSpeed          "			<< maxYSpeed		<< "\n";
+	std::cout << "maxAcc             "			<< maxAcc			<< "\n";
 
-	std::cout << "vel.y              "			<< vel.y << "\n";
-	std::cout << "vel.x              "			<< vel.x << "\n";
+	std::cout << "vel.y              "			<< vel.y			<< "\n";
+	std::cout << "vel.x              "			<< vel.x			<< "\n";
 
-	std::cout << "hitGround          "			<< hitGround << "\n";
-	std::cout << "hitSidesOrBelow    "			<< hitSidesOrBelow << "\n";
-	std::cout << "hitTimer           "			<< hitTimer << "\n";
+	std::cout << "hitGround          "			<< hitGround		<< "\n";
+	std::cout << "hitSidesOrBelow    "			<< hitSidesOrBelow	<< "\n";
+	std::cout << "hitTimer           "			<< hitTimer			<< "\n";
 
 }
 
 
 
 sf::Vector2f Gravity::setupGravity() {
-
 	vel += gravity;
-	return vel;
-	
+	return vel;	
 }
-
-
 
 
 sf::Vector2f Gravity::isOnGround() {
@@ -89,14 +85,12 @@ sf::Vector2f Gravity::movingLeft() {
 sf::Vector2f Gravity::movingRight() {
 	vel.x += runAcc;
 	return vel;
-
 }
 
 
 sf::Vector2f Gravity::deAccelerate() {
 	vel.x *= 0.992;
 	return vel;
-
 }
 
 void Gravity::limitAcceleration() {
@@ -129,35 +123,24 @@ void Gravity::limitAcceleration() {
 	else {
 		hitSidesOrBelow = false;
 	}
-
-
-
-
-
-
-
 }
 
 
 void Gravity::setGroundBool() {
 	hitGround = true;
-
 }
 
 void Gravity::setBelowSidesBool() {
 	hitSidesOrBelow = true;
-
 }
 
 
 void Gravity::printBools() {
 	std::cout << "hitGround: " << hitGround << "\n";
 	std::cout << "hitSidesOrBelow: " << hitSidesOrBelow << "\n";
-
 }
 
 
 void Gravity::printVelocity() {
 	std::cout << vel.y << "\n";
-
 }

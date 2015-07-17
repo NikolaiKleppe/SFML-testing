@@ -18,6 +18,7 @@ private:
 public:
 	Player();			
 	void			newPlayer();						//Initialize a player (setPosition etc)
+	void			loadTextures();
 	RectangleShape	getPlayer();						
 	void			movePlayer(float x, float y);
 	void			setPlayerPos(float x, float y);
