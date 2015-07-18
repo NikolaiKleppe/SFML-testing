@@ -14,15 +14,16 @@ class Game {
 
 private:
 	RenderWindow	window;
-	Texture			texture, texture2;
+	Texture			texture, texture2, texture3;
 	Font			font;
 	Int64			updateTime;					//60fps
 	Clock			updateClock;				//60fps
 	Event			event;						//Main event for userInput
 
 	RectangleShape	b1, b2, b3;
-	RectangleShape	block1, block2, block3, block4, block5;
 
+	std::vector<sf::RectangleShape> blocks;
+	std::vector<sf::RectangleShape> borders;
 
 public:
 
@@ -30,10 +31,12 @@ public:
 	~Game();
 	void			runWindow();							
 	void			drawRectangle(sf::RectangleShape name, float r_width, float r_height, float x, float y);
-	void			drawGame();							
+	void			drawGame();	
+	void			drawTextures(std::vector<sf::RectangleShape> &shape, int size, sf::Texture &text);
 	void			drawView();							//How big the visible field is in res
-	void			drawPlayer();							
-	void			draw(sf::RectangleShape sprite);		
+	void			drawPlayer();		
+	void			draw(sf::RectangleShape sprite);	
+	
 	void			userInput();							
 	void			movePlayer(float x, float y);
 	void			setPlayerPos(float x, float y);

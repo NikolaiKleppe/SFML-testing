@@ -21,6 +21,7 @@ Game::Game() {
 
 void Game::loadTextures() {
 	texture2.loadFromFile("../../files/texture/ground.png");
+	texture3.loadFromFile("../../files/texture/block.png");
 }
 
 void Game::runWindow() {	
@@ -55,30 +56,34 @@ void Game::drawRectangle(sf::RectangleShape name, float r_width, float r_height,
 }
 
 
+
+
+
 void Game::drawGame() {
 	window.clear();
 
+	drawTextures(blocks, 100, texture2);
+	drawTextures(borders, 100, texture3);
 
-	//                        w      h     x      y
-	drawRectangle(b1,        15,   200,    20,    20);
-	drawRectangle(b2,      2250,    15,    20,   470);
-	drawRectangle(b3,       450,    15,    20,    20);
-	drawRectangle(block1,    80,    50,   300,   420);
-	drawRectangle(block2,    80,    80,   500,   350);
-	drawRectangle(block3,    80,    50,   350,   250);
-	drawRectangle(block4,    80,    50,   500,   150);
-	drawRectangle(block5,    80,    50,   600,   100);
-	
-	block1.setTexture(&texture2);
-	block2.setTexture(&texture2);
-	block3.setTexture(&texture2);
-	block4.setTexture(&texture2);
-	block5.setTexture(&texture2);
-
-	
-
+	//                            w        h      x      y
+	drawRectangle(borders[1],     15,     200,    20,    20);
+	drawRectangle(borders[2],   2250,      15,    20,   470);
+	drawRectangle(borders[3],    450,      15,    20,    20);
+	drawRectangle(blocks[1],      80,      50,   300,   420);
+	drawRectangle(blocks[2],      80,      80,   500,   350);
+	drawRectangle(blocks[3],      80,      50,   350,   250);
+	drawRectangle(blocks[4],      80,      50,   500,   150);
+	drawRectangle(blocks[5],      80,      50,   600,   100);
 
 	drawView();
+}
+
+
+void Game::drawTextures(std::vector<sf::RectangleShape> &shape, int size, sf::Texture &text) {
+	shape.resize(size);
+	for (auto i = shape.begin(); i != shape.end(); i++) {
+		i->setTexture(&text);
+	}
 }
 
 
