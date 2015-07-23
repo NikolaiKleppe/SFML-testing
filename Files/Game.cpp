@@ -20,8 +20,8 @@ Game::Game() {
 }
 
 void Game::loadTextures() {
-	texture2.loadFromFile("../../files/texture/ground.png");
-	texture3.loadFromFile("../../files/texture/block.png");
+	ground.loadFromFile("../../files/texture/ground.png");
+	block.loadFromFile("../../files/texture/block.png");
 }
 
 void Game::runWindow() {	
@@ -29,9 +29,9 @@ void Game::runWindow() {
 
 		/*Makes the game run at 60fps*/
 		const int frameTime = 1000000 / FPS;
-		Clock c;
-		Time t = c.getElapsedTime();
-		Int64 nextFrameTime = t.asMicroseconds() + frameTime;
+		sf::Clock c;
+		sf::Time t = c.getElapsedTime();
+		sf::Int64 nextFrameTime = t.asMicroseconds() + frameTime;
 
 		int loops = 0;
 		while (t.asMicroseconds() < nextFrameTime && loops < FRAMESKIP)  {
@@ -62,8 +62,8 @@ void Game::drawRectangle(sf::RectangleShape name, float r_width, float r_height,
 void Game::drawGame() {
 	window.clear();
 
-	drawTextures(blocks, 100, texture2);
-	drawTextures(borders, 100, texture3);
+	drawTextures(blocks, 100, ground);
+	drawTextures(borders, 100, block);
 
 	//                            w        h      x      y
 	drawRectangle(borders[1],     15,     200,    20,    20);
@@ -97,6 +97,7 @@ void Game::drawView() {
 	view.setCenter(260, 250);
 	
 	/* Player moves out of screen region, move the view*/
+
 	/* Exits right border*/
 	if (player_pos.x >= 830) {
 		view.move(1190, 0);
@@ -116,18 +117,16 @@ void Game::draw(sf::RectangleShape sprite) {
 
 
 void Game::userInput() {	
-
-
 	while (window.pollEvent(event)) {
-		if ((event.type == Event::Closed) ||
-		   ((event.type == Event::KeyPressed) && (event.key.code == Keyboard::D)))		
+		if ((event.type == sf::Event::Closed) ||
+		   ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::D)))
 		   window.close();
 	}
 
 
-	sf::Vector2f pos	   = player->getPlayer().getPosition();
-	sf::RectangleShape pp  = player->getPlayer();
-	sf::Vector2f vel	   = gv->setupGravity();
+	pos	   = player->getPlayer().getPosition();
+	pp	   = player->getPlayer();
+	vel	   = gv->updateGravity();
 
 	
 
@@ -181,7 +180,7 @@ void Game::drawPlayer() {
 
 
 
-void Game::playerCollide(RectangleShape sprite, float xDir, float yDir) {
+void Game::playerCollide(sf::RectangleShape sprite, float xDir, float yDir) {
 	sf::RectangleShape pp = player->getPlayer();
 	if (sprite.getGlobalBounds().intersects(pp.getGlobalBounds())) {
 		movePlayer(xDir, yDir);  
@@ -189,17 +188,17 @@ void Game::playerCollide(RectangleShape sprite, float xDir, float yDir) {
 }
 
 
-void Game::playerCollide2(RectangleShape sprite) {
+void Game::playerCollide2(sf::RectangleShape sprite) {
 	sf::RectangleShape pp = player->getPlayer();
 
 
 	if (b_intersects(pp, sprite)) {							//Player has hit a block
 										
-		FloatRect f_player = pp.getGlobalBounds();
+		sf::FloatRect f_player = pp.getGlobalBounds();
 
-		FloatRect f_sprite = sprite.getGlobalBounds();		//The block to collide with
-		Vector2f  v_sprite = sprite.getPosition();			//The block position
-		Vector2f  v_player = pp.getPosition();				//The player position
+		sf::FloatRect f_sprite = sprite.getGlobalBounds();		//The block to collide with
+		sf::Vector2f  v_sprite = sprite.getPosition();			//The block position
+		sf::Vector2f  v_player = pp.getPosition();				//The player position
 
 
 
@@ -237,9 +236,9 @@ void Game::playerCollide2(RectangleShape sprite) {
 
 
 
-bool Game::b_intersects(const RectangleShape &rect1, const RectangleShape &rect2) {
-	FloatRect r1 = rect1.getGlobalBounds();
-	FloatRect r2 = rect2.getGlobalBounds();
+bool Game::b_intersects(const sf::RectangleShape &rect1, const sf::RectangleShape &rect2) {
+	sf::FloatRect r1 = rect1.getGlobalBounds();
+	sf::FloatRect r2 = rect2.getGlobalBounds();
 	return r1.intersects(r2);
 }
 

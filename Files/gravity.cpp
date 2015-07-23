@@ -50,7 +50,7 @@ Gravity::Gravity(int jC, const float mF, const float rA, const float jA, const f
 
 
 
-sf::Vector2f Gravity::setupGravity() {
+sf::Vector2f Gravity::updateGravity() {
 	vel += gravity;
 	return vel;	
 }
@@ -92,6 +92,7 @@ sf::Vector2f Gravity::deAccelerate() {
 	vel.x *= 0.992;
 	return vel;
 }
+
 
 void Gravity::limitAcceleration() {
 	/*This whole function exists because the other code is bad and buggy ^)*/

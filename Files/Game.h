@@ -7,20 +7,24 @@
 #include <stdio.h>
 #include "Player.h"
 
-using namespace sf;
+ 
 
 
 class Game {
 
 private:
-	RenderWindow	window;
-	Texture			texture, texture2, texture3;
-	Font			font;
-	Int64			updateTime;					//60fps
-	Clock			updateClock;				//60fps
-	Event			event;						//Main event for userInput
+	sf::RenderWindow		window;
+	sf::Texture				ground, block;
+	sf::Font				font;
+	sf::Int64				updateTime;					//60fps
+	sf::Clock				updateClock;				//60fps
+	sf::Event				event;						//Main event for userInput
 
-	RectangleShape	b1, b2, b3;
+	sf::RectangleShape		b1, b2, b3;
+
+	sf::Vector2f		pos;
+	sf::RectangleShape	pp;
+	sf::Vector2f		vel;
 
 	std::vector<sf::RectangleShape> blocks;
 	std::vector<sf::RectangleShape> borders;
@@ -43,9 +47,9 @@ public:
 
 	void			loadTextures();
 
-	void			playerCollide(RectangleShape sprite, float xDir, float yDir);
-	void			playerCollide2(RectangleShape sprite);
-	bool			b_intersects(const RectangleShape &rect1, const RectangleShape &rect2);
+	void			playerCollide(sf::RectangleShape sprite, float xDir, float yDir);
+	void			playerCollide2(sf::RectangleShape sprite);
+	bool			b_intersects(const sf::RectangleShape &rect1, const sf::RectangleShape &rect2);
 };
 
 

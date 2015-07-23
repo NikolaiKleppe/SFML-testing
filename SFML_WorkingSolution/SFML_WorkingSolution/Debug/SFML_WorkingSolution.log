@@ -1,4 +1,4 @@
-﻿Build started 19/07/2015 00:27:42.
+﻿Build started 23/07/2015 19:30:57.
      1>Project "C:\Programmering\Spill\SFML\SFML-testing\SFML_WorkingSolution\SFML_WorkingSolution\SFML_WorkingSolution.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\AAPrograms\Visual Studio 12.0\VC\bin\CL.exe /c /IC:\Programmering\Libraries\SFML\include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\Files\Game.cpp
@@ -13,4 +13,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.64
+Time Elapsed 00:00:01.21

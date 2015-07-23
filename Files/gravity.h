@@ -20,6 +20,7 @@ private:
 
 	sf::Vector2f	vel;
 	sf::Vector2f	gravity;
+	
 
 	int				jumpFrames;
 
@@ -36,7 +37,7 @@ public:
 		);
 
 
-	sf::Vector2f	setupGravity();
+	sf::Vector2f	updateGravity();
 	sf::Vector2f	isOnGround();
 	sf::Vector2f	isInAir();
 	sf::Vector2f	movingLeft();

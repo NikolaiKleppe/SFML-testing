@@ -5,21 +5,21 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-using namespace sf;
+ 
 
 
 class Player {
 
 private:
-	RectangleShape	mainPlayer;
-	Vector2f		playerSpeed;
-	Texture			texture;
+	sf::RectangleShape	mainPlayer;
+	sf::Vector2f		playerSpeed;
+	sf::Texture			texture;
 
 public:
 	Player();			
 	void			newPlayer();						//Initialize a player (setPosition etc)
 	void			loadTextures();
-	RectangleShape	getPlayer();						
+	sf::RectangleShape	getPlayer();
 	void			movePlayer(float x, float y);
 	void			setPlayerPos(float x, float y);
 	void			showCoord();
