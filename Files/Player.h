@@ -12,18 +12,18 @@ class Player {
 
 private:
 	sf::RectangleShape	mainPlayer;
-	sf::Vector2f		playerSpeed;
 	sf::Texture			texture;
 
 public:
 	Player();			
-	void			newPlayer();						//Initialize a player (setPosition etc)
-	void			loadTextures();
+	void				newPlayer();						//Initialize a player (setPosition etc)
+	void				loadTextures();
 	sf::RectangleShape	getPlayer();
-	void			movePlayer(float x, float y);
-	void			setPlayerPos(float x, float y);
-	void			showCoord();
+	void				movePlayer(float x, float y);
+	void				setPlayerPos(float x, float y);
+	void				showCoord();
 	
+
 };
 
 

@@ -1,10 +1,12 @@
 #include "const.h"
 #include "Player.h"
 #include "Game.h"
+#include "gravity.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
 extern Game *game;
+extern Gravity *gv;
 
 Player::Player() {
 	std::cout << "\nPlayer constructor\n";
@@ -46,3 +48,10 @@ void Player::showCoord() {
 	std::cout << "Current X-Position:  " << mainPlayer.getPosition().x << "\n";
 	std::cout << "Current Y-Position:  " << mainPlayer.getPosition().y << "\n\n";
 }
+
+
+
+
+
+
+

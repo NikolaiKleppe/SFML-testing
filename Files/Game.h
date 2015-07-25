@@ -20,11 +20,9 @@ private:
 	sf::Clock				updateClock;				//60fps
 	sf::Event				event;						//Main event for userInput
 
-	sf::RectangleShape		b1, b2, b3;
-
-	sf::Vector2f		pos;
-	sf::RectangleShape	pp;
-	sf::Vector2f		vel;
+	sf::Vector2f			pos;
+	sf::RectangleShape		pp;
+	sf::Vector2f			vel;
 
 	std::vector<sf::RectangleShape> blocks;
 	std::vector<sf::RectangleShape> borders;
@@ -39,17 +37,16 @@ public:
 	void			drawTextures(std::vector<sf::RectangleShape> &shape, int size, sf::Texture &text);
 	void			drawView();							//How big the visible field is in res
 	void			drawPlayer();		
+	void			drawMonster();
 	void			draw(sf::RectangleShape sprite);	
 	
 	void			userInput();							
 	void			movePlayer(float x, float y);
+	void			moveTheMonster();
 	void			setPlayerPos(float x, float y);
 
 	void			loadTextures();
 
-	void			playerCollide(sf::RectangleShape sprite, float xDir, float yDir);
-	void			playerCollide2(sf::RectangleShape sprite);
-	bool			b_intersects(const sf::RectangleShape &rect1, const sf::RectangleShape &rect2);
 };
 
 

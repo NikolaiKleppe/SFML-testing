@@ -2,15 +2,18 @@
 #include "Game.h"
 #include "Player.h"
 #include "gravity.h"
+#include "Monster.h"
+#include "Collide.h"
 #include <iostream>
 #include <sstream>      // std::stringstream
 #include <SFML/Graphics.hpp>
 
 using namespace std;
 
-extern Player *player;
+extern Player  *player;
 extern Gravity *gv;
-
+extern Monster *monster;
+extern Collide *collide;
 
 Game::Game() {
 	window.create(sf::VideoMode(WIDTH, HEIGHT), "Green dot vs The World");
@@ -27,7 +30,7 @@ void Game::loadTextures() {
 void Game::runWindow() {	
 	while (window.isOpen()) {	
 
-		/*Makes the game run at 60fps*/
+		/*Make the game run at 60fps*/
 		const int frameTime = 1000000 / FPS;
 		sf::Clock c;
 		sf::Time t = c.getElapsedTime();
@@ -39,6 +42,7 @@ void Game::runWindow() {
 			updateTime = updateClock.restart().asMilliseconds();
 			drawGame();
 			drawPlayer();
+			drawMonster();
 			t = c.getElapsedTime();
 			loops++;
 		}
@@ -52,10 +56,8 @@ void Game::drawRectangle(sf::RectangleShape name, float r_width, float r_height,
 	name.setSize(sf::Vector2f(r_width, r_height));
 	name.setPosition(x, y);
 	draw(name);
-	playerCollide2(name);
+	collide->playerCollide(name);
 }
-
-
 
 
 
@@ -124,17 +126,18 @@ void Game::userInput() {
 	}
 
 
-	pos	   = player->getPlayer().getPosition();
-	pp	   = player->getPlayer();
-	vel	   = gv->updateGravity();
+	pos	= player->getPlayer().getPosition();
+	pp  = player->getPlayer();
+	vel	= gv->updateGravity();
 
 	
 
 	movePlayer(0.0, vel.y);							//Up-Down
 	movePlayer(vel.x, 0.0);							//Left-Right
+	moveTheMonster();
 
 	
-
+	/* TODO: Put all of this in its own function */
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
 		vel = gv->isOnGround();
 	}
@@ -168,6 +171,10 @@ void Game::movePlayer(float x, float y) {
 	player->movePlayer(x, y);
 }
 
+void Game::moveTheMonster() {
+	monster->moveMonster();
+}
+
 void Game::setPlayerPos(float x, float y) {
 	player->setPlayerPos(x, y);
 }
@@ -177,71 +184,6 @@ void Game::drawPlayer() {
 
 }
 
-
-
-
-void Game::playerCollide(sf::RectangleShape sprite, float xDir, float yDir) {
-	sf::RectangleShape pp = player->getPlayer();
-	if (sprite.getGlobalBounds().intersects(pp.getGlobalBounds())) {
-		movePlayer(xDir, yDir);  
-	}
+void Game::drawMonster() {
+	draw(monster->getMonster());
 }
-
-
-void Game::playerCollide2(sf::RectangleShape sprite) {
-	sf::RectangleShape pp = player->getPlayer();
-
-
-	if (b_intersects(pp, sprite)) {							//Player has hit a block
-										
-		sf::FloatRect f_player = pp.getGlobalBounds();
-
-		sf::FloatRect f_sprite = sprite.getGlobalBounds();		//The block to collide with
-		sf::Vector2f  v_sprite = sprite.getPosition();			//The block position
-		sf::Vector2f  v_player = pp.getPosition();				//The player position
-
-
-
-		/* Sprite hit from right side */
-		if ((v_player.x - 1.0) < v_sprite.x - f_player.height) {
-			movePlayer(-1.0, 0.0);
-			gv->setBelowSidesBool();
-
-		}
-
-
-		/* Sprite hit from left side */
-		else if ((v_player.x - 18) > v_sprite.x + (f_sprite.width)) {
-			movePlayer(1, 0.0);
-			gv->setBelowSidesBool();
-		}
-
-
-		/* Sprite hit from top side */
-		else if (v_player.y <= v_sprite.y + (f_sprite.height)) {
-			movePlayer(0.0, -1.0);
-			gv->setGroundBool();
-		}
-
-
-		/* Sprite hit from bot side*/
-		else if (v_player.y >= v_sprite.y + (f_sprite.height)) {
-			movePlayer(0.0, 1.0);
-			gv->setBelowSidesBool();
-		}
-	}
-
-	
-}
-
-
-
-bool Game::b_intersects(const sf::RectangleShape &rect1, const sf::RectangleShape &rect2) {
-	sf::FloatRect r1 = rect1.getGlobalBounds();
-	sf::FloatRect r2 = rect2.getGlobalBounds();
-	return r1.intersects(r2);
-}
-
-
-
-
