@@ -33,7 +33,7 @@ public:
 	~Game();
 	void			runWindow();							
 	void			drawRectangle(sf::RectangleShape name, float r_width, float r_height, float x, float y);
-	void			drawGame();	
+	void			drawGameLevel();	
 	void			drawTextures(std::vector<sf::RectangleShape> &shape, int size, sf::Texture &text);
 	void			drawView();							//How big the visible field is in res
 	void			drawPlayer();		
@@ -42,7 +42,6 @@ public:
 	
 	void			userInput();							
 	void			movePlayer(float x, float y);
-	void			moveTheMonster();
 	void			setPlayerPos(float x, float y);
 
 	void			loadTextures();

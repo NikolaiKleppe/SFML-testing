@@ -5,6 +5,7 @@
 #include "Collide.h"
 
 extern Collide *collide;
+extern Game *game;
 
 
 Monster::Monster() {
@@ -12,29 +13,49 @@ Monster::Monster() {
 }
 
 Monster::Monster(int mC, bool t) {
-	mob = sf::RectangleShape(sf::Vector2f(60, 50));
-	mob.setOrigin(20, 30);
-	mob.setPosition(800, 450);
-	mob.setFillColor(sf::Color::Red);
-
+	mob.setPosition(730, 300);			//cant be here
 	moveCount = mC;
-	test	  = t;
+	test	  = t;	
 
+	loadTextures();
+}
+
+
+
+void Monster::makeMonster(sf::RectangleShape name) {
+
+	name.setSize(sf::Vector2f(200.0, 250.0));
+	game->draw(name);
+	collide->playerCollide(name);
 	
 }
 
+void Monster::drawMonsters() {
+	makeMonster(mob);
+
+	/* make more monsters here */
+
+	moveMonster(mob);					
+
+
+}
 
 void Monster::loadTextures() {
-	
+	text1.loadFromFile("../../files/texture/diablo_Left.png");
+	text2.loadFromFile("../../files/texture/diablo_Right.png");
 }
 
 
 
+/* TODO: 
+	Setup different movement path options with a switch	and put each option in its own function
+		i.e all the code below should be in its own function.
+*/
+void Monster::moveMonster(sf::RectangleShape &name) {
 
-void Monster::moveMonster() {
-	collide->playerCollide(mob);
 	if (test == true) {
-		mob.move(0.2, 0.0);
+		name.move(0.2F, 0.0F);
+		name.setTexture(&text2);
 		moveCount--;
 		if (moveCount == 0) {
 			test = false;
@@ -42,9 +63,10 @@ void Monster::moveMonster() {
 	}
 
 	else if (test == false) {
-		mob.move(-0.2, 0.0);
+		name.move(-0.2F, 0.0F);
+		name.setTexture(&text1);
 		moveCount++;
-		if (moveCount == 700) {
+		if (moveCount == 1500) {
 			test = true;
 			
 		}
@@ -52,6 +74,3 @@ void Monster::moveMonster() {
 	
 }
 
-sf::RectangleShape Monster::getMonster() {
-	return mob;
-}

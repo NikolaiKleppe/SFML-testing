@@ -20,6 +20,12 @@ Game::Game() {
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(FPS);
 	loadTextures();
+
+	player  = new Player;
+	gv      = new Gravity(0, 0.4F, 0.001F, -0.05F, -0.8F, 0.5F, -0.1F, sf::Vector2f(0.0F, 0.0F), sf::Vector2f(0.F, 0.003F), 10, false, false, 5.0F);
+	monster = new Monster(0, false);
+	collide = new Collide();
+
 }
 
 void Game::loadTextures() {
@@ -40,9 +46,9 @@ void Game::runWindow() {
 		while (t.asMicroseconds() < nextFrameTime && loops < FRAMESKIP)  {
 			userInput();
 			updateTime = updateClock.restart().asMilliseconds();
-			drawGame();
+			drawGameLevel();
 			drawPlayer();
-			drawMonster();
+			monster->drawMonsters();
 			t = c.getElapsedTime();
 			loops++;
 		}
@@ -61,21 +67,21 @@ void Game::drawRectangle(sf::RectangleShape name, float r_width, float r_height,
 
 
 
-void Game::drawGame() {
+void Game::drawGameLevel() {
 	window.clear();
 
 	drawTextures(blocks, 100, ground);
 	drawTextures(borders, 100, block);
 
-	//                            w        h      x      y
-	drawRectangle(borders[1],     15,     200,    20,    20);
-	drawRectangle(borders[2],   2250,      15,    20,   470);
-	drawRectangle(borders[3],    450,      15,    20,    20);
-	drawRectangle(blocks[1],      80,      50,   300,   420);
-	drawRectangle(blocks[2],      80,      80,   500,   350);
-	drawRectangle(blocks[3],      80,      50,   350,   250);
-	drawRectangle(blocks[4],      80,      50,   500,   150);
-	drawRectangle(blocks[5],      80,      50,   600,   100);
+	//                            w        h        x        y
+	drawRectangle(borders[1],     15,     200,    -200,     20);
+	drawRectangle(borders[2],   2250,      15,    -200,    470);
+	drawRectangle(borders[3],    450,      15,    -200,     20);
+	drawRectangle(blocks[1],      80,      50,    -100,    420);
+	drawRectangle(blocks[2],      80,      80,    -200,    350);
+	drawRectangle(blocks[3],      80,      50,       0,    250);
+	drawRectangle(blocks[4],      80,      50,	   -80,    160);
+	drawRectangle(blocks[5],      80,      50,      90,    100);
 
 	drawView();
 }
@@ -134,7 +140,7 @@ void Game::userInput() {
 
 	movePlayer(0.0, vel.y);							//Up-Down
 	movePlayer(vel.x, 0.0);							//Left-Right
-	moveTheMonster();
+
 
 	
 	/* TODO: Put all of this in its own function */
@@ -149,6 +155,7 @@ void Game::userInput() {
 
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 		vel = gv->movingRight();
+
 	}
 
 	else 											// No button press, de-accelerate player
@@ -171,9 +178,7 @@ void Game::movePlayer(float x, float y) {
 	player->movePlayer(x, y);
 }
 
-void Game::moveTheMonster() {
-	monster->moveMonster();
-}
+
 
 void Game::setPlayerPos(float x, float y) {
 	player->setPlayerPos(x, y);
@@ -184,6 +189,3 @@ void Game::drawPlayer() {
 
 }
 
-void Game::drawMonster() {
-	draw(monster->getMonster());
-}

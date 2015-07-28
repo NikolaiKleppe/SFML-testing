@@ -8,6 +8,9 @@
 extern Game *game;
 extern Gravity *gv;
 
+
+
+
 Player::Player() {
 	std::cout << "\nPlayer constructor\n";
 	mainPlayer = sf::RectangleShape(sf::Vector2f(50, 30));
@@ -15,16 +18,20 @@ Player::Player() {
 	loadTextures();
 }
 
-void Player::loadTextures() {
-	texture.loadFromFile("../../files/texture/snipar.jpg");
-	mainPlayer.setTexture(&texture);
-}
 
 
 void Player::newPlayer() {
 	mainPlayer.setOrigin(20, 30);
 	mainPlayer.setPosition(260, 250);
 	mainPlayer.setFillColor(sf::Color::Green);
+}
+
+
+
+
+void Player::loadTextures() {
+	texture.loadFromFile("../../files/texture/snipar.jpg");
+	mainPlayer.setTexture(&texture);
 }
 
 

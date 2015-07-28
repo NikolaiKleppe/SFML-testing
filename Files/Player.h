@@ -17,6 +17,7 @@ private:
 public:
 	Player();			
 	void				newPlayer();						//Initialize a player (setPosition etc)
+
 	void				loadTextures();
 	sf::RectangleShape	getPlayer();
 	void				movePlayer(float x, float y);
