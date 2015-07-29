@@ -13,7 +13,6 @@ Monster::Monster() {
 }
 
 Monster::Monster(int mC, bool t) {
-	mob.setPosition(730, 300);			//cant be here
 	moveCount = mC;
 	test	  = t;	
 
@@ -22,8 +21,8 @@ Monster::Monster(int mC, bool t) {
 
 
 
-void Monster::makeMonster(sf::RectangleShape name) {
-
+void Monster::makeMonster(sf::RectangleShape name, float posX, float posY) {
+	name.setOrigin(sf::Vector2f(posX, posY));
 	name.setSize(sf::Vector2f(200.0, 250.0));
 	game->draw(name);
 	collide->playerCollide(name);
@@ -31,11 +30,12 @@ void Monster::makeMonster(sf::RectangleShape name) {
 }
 
 void Monster::drawMonsters() {
-	makeMonster(mob);
+	monster.resize(100);
+	makeMonster(monster[1], -600.0, -100.0);
 
-	/* make more monsters here */
 
-	moveMonster(mob);					
+
+	moveMonster(monster[1], text1, text2);
 
 
 }
@@ -51,11 +51,11 @@ void Monster::loadTextures() {
 	Setup different movement path options with a switch	and put each option in its own function
 		i.e all the code below should be in its own function.
 */
-void Monster::moveMonster(sf::RectangleShape &name) {
+void Monster::moveMonster(sf::RectangleShape &name, sf::Texture &texture1, sf::Texture &texture2) {
 
 	if (test == true) {
 		name.move(0.2F, 0.0F);
-		name.setTexture(&text2);
+		name.setTexture(&texture2);
 		moveCount--;
 		if (moveCount == 0) {
 			test = false;
@@ -64,7 +64,7 @@ void Monster::moveMonster(sf::RectangleShape &name) {
 
 	else if (test == false) {
 		name.move(-0.2F, 0.0F);
-		name.setTexture(&text1);
+		name.setTexture(&texture1);
 		moveCount++;
 		if (moveCount == 1500) {
 			test = true;

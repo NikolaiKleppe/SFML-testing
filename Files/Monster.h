@@ -9,7 +9,6 @@
 class Monster {
 
 private:
-	sf::RectangleShape	mob;
 	sf::Texture			text1, text2;
 	int moveCount;
 	bool test;
@@ -21,10 +20,10 @@ public:
 	Monster(int mC, bool t);
 
 
-	void makeMonster(sf::RectangleShape name);
+	void makeMonster(sf::RectangleShape name, float posX, float posY);
 	void drawMonsters();
 	void loadTextures();
-	void moveMonster(sf::RectangleShape &name);
+	void moveMonster(sf::RectangleShape &name, sf::Texture &texture1, sf::Texture &texture2);
 
 
 
