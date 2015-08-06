@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
+
  
 
 
@@ -24,6 +25,7 @@ public:
 	void				setPlayerPos(float x, float y);
 	void				showCoord();
 	
+
 
 };
 

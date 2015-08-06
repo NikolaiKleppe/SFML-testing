@@ -21,19 +21,16 @@ Monster::Monster(int mC, bool t) {
 
 
 
-void Monster::makeMonster(sf::RectangleShape name, float posX, float posY) {
+void Monster::makeMonster(sf::RectangleShape name, float posX, float posY, float sizeX, float sizeY) {
 	name.setOrigin(sf::Vector2f(posX, posY));
-	name.setSize(sf::Vector2f(200.0, 250.0));
+	name.setSize(sf::Vector2f(sizeX, sizeY));
 	game->draw(name);
-	collide->playerCollide(name);
-	
+	collide->playerCollide(name);					//Set up collision with the player
 }
 
 void Monster::drawMonsters() {
 	monster.resize(100);
-	makeMonster(monster[1], -600.0, -100.0);
-
-
+	makeMonster(monster[1], -600.0, -100.0, 200.0, 250.0);
 
 	moveMonster(monster[1], text1, text2);
 
@@ -41,8 +38,14 @@ void Monster::drawMonsters() {
 }
 
 void Monster::loadTextures() {
-	text1.loadFromFile("../../files/texture/diablo_Left.png");
-	text2.loadFromFile("../../files/texture/diablo_Right.png");
+	image1.loadFromFile("../../files/texture/hostile/cow_Left.png");
+	image1.createMaskFromColor(sf::Color::White);
+
+	image2.loadFromFile("../../files/texture/hostile/cow_Right.png");
+	image2.createMaskFromColor(sf::Color::White);
+
+	text1.loadFromImage(image1);
+	text2.loadFromImage(image2);
 }
 
 

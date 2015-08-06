@@ -5,6 +5,7 @@
 #include "gravity.h"
 #include "Monster.h"
 #include "Collide.h"
+#include "Bullet.h"
 #include <iostream>
 
 
@@ -13,6 +14,10 @@ Player	*player;
 Gravity *gv;
 Monster *monster;
 Collide *collide;
+Bullet  *bullet;
+//AnimatedSprite *animatedSprite;
+
+
 
 int main() { 	
 	game    = new Game;

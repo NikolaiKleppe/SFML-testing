@@ -27,6 +27,10 @@ private:
 	std::vector<sf::RectangleShape> blocks;
 	std::vector<sf::RectangleShape> borders;
 
+
+
+
+
 public:
 
 	Game();
@@ -39,12 +43,15 @@ public:
 	void			drawPlayer();		
 	void			drawMonster();
 	void			draw(sf::RectangleShape sprite);	
+	void			draw(sf::Sprite sprite);
 	
 	void			userInput();							
 	void			movePlayer(float x, float y);
 	void			setPlayerPos(float x, float y);
 
 	void			loadTextures();
+
+	
 
 };
 

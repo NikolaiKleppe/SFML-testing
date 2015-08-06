@@ -11,11 +11,21 @@
 class Bullet {
 
 private:
+	sf::Sprite			sprite;
+	sf::Texture			texture;
+	sf::Vector2f		targetDirection;
+
+	std::vector<sf::Sprite> bullet;
 
 
 public:
 
+	Bullet();
+	~Bullet();
 
+	void makeBullet();
+	void fireBullet();
+	void loadTextures();
 
 };
 

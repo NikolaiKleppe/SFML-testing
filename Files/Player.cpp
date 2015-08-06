@@ -4,6 +4,7 @@
 #include "gravity.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "AnimatedSprite.hpp"
 
 extern Game *game;
 extern Gravity *gv;
@@ -12,10 +13,10 @@ extern Gravity *gv;
 
 
 Player::Player() {
-	std::cout << "\nPlayer constructor\n";
-	mainPlayer = sf::RectangleShape(sf::Vector2f(50, 30));
-	newPlayer();
+	//mainPlayer = sf::RectangleShape(sf::Vector2f(50, 30));
+	//newPlayer();
 	loadTextures();
+
 }
 
 
@@ -30,10 +31,11 @@ void Player::newPlayer() {
 
 
 void Player::loadTextures() {
-	texture.loadFromFile("../../files/texture/snipar.jpg");
-	mainPlayer.setTexture(&texture);
-}
+	//texture.loadFromFile("../../files/texture/player/snipar.jpg");
+	//mainPlayer.setTexture(&texture);
 
+
+}
 
 sf::RectangleShape Player::getPlayer() {
 	return mainPlayer;
@@ -55,10 +57,4 @@ void Player::showCoord() {
 	std::cout << "Current X-Position:  " << mainPlayer.getPosition().x << "\n";
 	std::cout << "Current Y-Position:  " << mainPlayer.getPosition().y << "\n\n";
 }
-
-
-
-
-
-
 

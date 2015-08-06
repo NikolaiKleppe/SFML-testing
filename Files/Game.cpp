@@ -4,6 +4,7 @@
 #include "gravity.h"
 #include "Monster.h"
 #include "Collide.h"
+#include "Bullet.h"
 #include <iostream>
 #include <sstream>      // std::stringstream
 #include <SFML/Graphics.hpp>
@@ -14,6 +15,7 @@ extern Player  *player;
 extern Gravity *gv;
 extern Monster *monster;
 extern Collide *collide;
+extern Bullet  *bullet;
 
 Game::Game() {
 	window.create(sf::VideoMode(WIDTH, HEIGHT), "Green dot vs The World");
@@ -25,12 +27,12 @@ Game::Game() {
 	gv      = new Gravity(0, 0.4F, 0.001F, -0.05F, -0.8F, 0.5F, -0.1F, sf::Vector2f(0.0F, 0.0F), sf::Vector2f(0.F, 0.003F), 10, false, false, 5.0F);
 	monster = new Monster(0, false);
 	collide = new Collide();
-
+//	bullet  = new Bullet();
 }
 
 void Game::loadTextures() {
-	ground.loadFromFile("../../files/texture/ground.png");
-	block.loadFromFile("../../files/texture/block.png");
+	ground.loadFromFile("../../files/texture/level/ground.png");
+	block.loadFromFile("../../files/texture/level/block.png");
 }
 
 void Game::runWindow() {	
@@ -49,6 +51,7 @@ void Game::runWindow() {
 			drawGameLevel();
 			drawPlayer();
 			monster->drawMonsters();
+//			bullet->makeBullet();
 			t = c.getElapsedTime();
 			loops++;
 		}
@@ -122,6 +125,9 @@ void Game::draw(sf::RectangleShape sprite) {
 }
 
 
+void Game::draw(sf::Sprite sprite) {
+	window.draw(sprite);
+}
 
 
 void Game::userInput() {	
@@ -142,7 +148,16 @@ void Game::userInput() {
 	movePlayer(vel.x, 0.0);							//Left-Right
 
 
-	
+
+
+
+
+
+
+
+
+
+
 	/* TODO: Put all of this in its own function */
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
 		vel = gv->isOnGround();
@@ -150,6 +165,7 @@ void Game::userInput() {
 	
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+
 		vel = gv->movingLeft();
 	}
 
@@ -158,10 +174,11 @@ void Game::userInput() {
 
 	}
 
-	else 											// No button press, de-accelerate player
+	else 											//No button press, de-accelerate player
 		vel = gv->deAccelerate();
 		gv->limitAcceleration();
-		
+
+
 
 
 		/* Debug: show coodinate*/
@@ -188,4 +205,5 @@ void Game::drawPlayer() {
 	draw(player->getPlayer());
 
 }
+
 
