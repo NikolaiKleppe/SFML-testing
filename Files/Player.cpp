@@ -13,8 +13,8 @@ extern Gravity *gv;
 
 
 Player::Player() {
-	//mainPlayer = sf::RectangleShape(sf::Vector2f(50, 30));
-	//newPlayer();
+	mainPlayer = sf::RectangleShape(sf::Vector2f(50, 30));
+	newPlayer();
 	loadTextures();
 
 }
@@ -31,8 +31,8 @@ void Player::newPlayer() {
 
 
 void Player::loadTextures() {
-	//texture.loadFromFile("../../files/texture/player/snipar.jpg");
-	//mainPlayer.setTexture(&texture);
+	texture.loadFromFile("../../files/texture/player/snipar.jpg");
+	mainPlayer.setTexture(&texture);
 
 
 }
