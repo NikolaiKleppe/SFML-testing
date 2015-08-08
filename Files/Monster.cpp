@@ -25,7 +25,7 @@ void Monster::makeMonster(sf::RectangleShape name, float posX, float posY, float
 	name.setOrigin(sf::Vector2f(posX, posY));
 	name.setSize(sf::Vector2f(sizeX, sizeY));
 	game->draw(name);
-	collide->playerCollide(name);					//Set up collision with the player
+//	collide->playerCollide(name);					//Set up collision with the player
 }
 
 void Monster::drawMonsters() {

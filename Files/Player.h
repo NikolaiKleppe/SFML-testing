@@ -4,7 +4,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
-
+#include "AnimatedSprite.hpp"
 
  
 
@@ -12,19 +12,40 @@
 class Player {
 
 private:
-	sf::RectangleShape	mainPlayer;
+	AnimatedSprite		mainPlayer;
+	sf::RectangleShape  playerShadow;
 	sf::Texture			texture;
+	sf::Image			shadowImage;
+	sf::Texture			shadowTexture;
+
+	Animation walkingAnimationDown;
+	Animation walkingAnimationLeft;
+	Animation walkingAnimationRight;
+	Animation walkingAnimationUp;
 
 public:
 	Player();			
-	void				newPlayer();						//Initialize a player (setPosition etc)
 
 	void				loadTextures();
-	sf::RectangleShape	getPlayer();
+	sf::RectangleShape  getPlayerShadow();
+	AnimatedSprite		getPlayerAnim();
 	void				movePlayer(float x, float y);
+	void				moveShadow(float x, float y);
 	void				setPlayerPos(float x, float y);
 	void				showCoord();
 	
+	void setupAnim();
+
+
+	Animation * getDown();
+	Animation * getLeft();
+	Animation * getRight();
+	Animation * getUp();
+
+
+
+
+
 
 
 };

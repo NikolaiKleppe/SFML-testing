@@ -7,6 +7,7 @@
 #include "Bullet.h"
 #include <iostream>
 #include <sstream>      // std::stringstream
+#include "AnimatedSprite.hpp"
 #include <SFML/Graphics.hpp>
 
 using namespace std;
@@ -28,6 +29,12 @@ Game::Game() {
 	monster = new Monster(0, false);
 	collide = new Collide();
 //	bullet  = new Bullet();
+
+	currentAnimation = player->getDown();		
+
+	animatedSprite = player->getPlayerAnim();
+
+
 }
 
 void Game::loadTextures() {
@@ -46,14 +53,17 @@ void Game::runWindow() {
 
 		int loops = 0;
 		while (t.asMicroseconds() < nextFrameTime && loops < FRAMESKIP)  {
-			userInput();
+		
 			updateTime = updateClock.restart().asMilliseconds();
+			userInput();
 			drawGameLevel();
 			drawPlayer();
+			drawPlayerShadow();
 			monster->drawMonsters();
 //			bullet->makeBullet();
 			t = c.getElapsedTime();
 			loops++;
+
 		}
 		window.display();
 	}	
@@ -70,6 +80,7 @@ void Game::drawRectangle(sf::RectangleShape name, float r_width, float r_height,
 
 
 
+
 void Game::drawGameLevel() {
 	window.clear();
 
@@ -80,11 +91,11 @@ void Game::drawGameLevel() {
 	drawRectangle(borders[1],     15,     200,    -200,     20);
 	drawRectangle(borders[2],   2250,      15,    -200,    470);
 	drawRectangle(borders[3],    450,      15,    -200,     20);
-	drawRectangle(blocks[1],      80,      50,    -100,    420);
+	drawRectangle(blocks[1],      80,      50,    100,    420);
 	drawRectangle(blocks[2],      80,      80,    -200,    350);
 	drawRectangle(blocks[3],      80,      50,       0,    250);
 	drawRectangle(blocks[4],      80,      50,	   -80,    160);
-	drawRectangle(blocks[5],      80,      50,      90,    100);
+	drawRectangle(blocks[5],      80,      50,      160,    100);
 
 	drawView();
 }
@@ -100,7 +111,7 @@ void Game::drawTextures(std::vector<sf::RectangleShape> &shape, int size, sf::Te
 
 void Game::drawView() {
 	sf::View view(sf::FloatRect(200, 200, 300, 200));
-	sf::RectangleShape pp = player->getPlayer();
+	AnimatedSprite pp = player->getPlayerAnim();
 	sf::Vector2f player_pos = pp.getPosition();
 
 	view.setSize(1200, 800);
@@ -124,11 +135,13 @@ void Game::draw(sf::RectangleShape sprite) {
 	window.draw(sprite);
 }
 
-
 void Game::draw(sf::Sprite sprite) {
 	window.draw(sprite);
 }
 
+void Game::draw(AnimatedSprite sprite) {
+	window.draw(sprite);
+}
 
 void Game::userInput() {	
 	while (window.pollEvent(event)) {
@@ -138,62 +151,76 @@ void Game::userInput() {
 	}
 
 
-	pos	= player->getPlayer().getPosition();
-	pp  = player->getPlayer();
 	vel	= gv->updateGravity();
 
 	
 
 	movePlayer(0.0, vel.y);							//Up-Down
 	movePlayer(vel.x, 0.0);							//Left-Right
+	
+	
+
+	frameTime = frameClock.restart();
 
 
-
-
-
-
-
-
-
-
+	
 
 
 	/* TODO: Put all of this in its own function */
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+
+		currentAnimation = player->getUp();
 		vel = gv->isOnGround();
+		noKeyWasPressed = false;
 	}
 	
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-
+		currentAnimation = player->getLeft();
 		vel = gv->movingLeft();
+		noKeyWasPressed = false;
 	}
 
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+		currentAnimation = player->getRight();
 		vel = gv->movingRight();
-
+		noKeyWasPressed = false;
 	}
 
 	else 											//No button press, de-accelerate player
 		vel = gv->deAccelerate();
 		gv->limitAcceleration();
+		
+		
+	
+	if (noKeyWasPressed)
+	{
+		animatedSprite.stop();
+	}
+	noKeyWasPressed = true;
+		
+	
+		
+		
+	
 
-
-
-
-		/* Debug: show coodinate*/
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)) {
-		//	player->showCoord();
-			gv->printVelocity();
-		}
+	/* Debug: show coodinate*/
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)) {
+		player->showCoord();
+	//	gv->printVelocity();
+	}
 
 	
 }
 
 
+
+
 void Game::movePlayer(float x, float y) {
-	player->movePlayer(x, y);
+	animatedSprite.move(x,  y);		
+	player->moveShadow(x, y);
 }
+
 
 
 
@@ -202,8 +229,16 @@ void Game::setPlayerPos(float x, float y) {
 }
 
 void Game::drawPlayer() {
-	draw(player->getPlayer());
-
+	animatedSprite.play(*currentAnimation);
+	window.draw(animatedSprite);
+	animatedSprite.update(frameTime);
 }
 
 
+void Game::drawPlayerShadow() {								
+	draw(player->getPlayerShadow());
+}
+
+AnimatedSprite Game::getAnim() {
+	return animatedSprite;
+}

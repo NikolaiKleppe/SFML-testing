@@ -6,7 +6,7 @@
 #include <iostream>
 #include <stdio.h>
 #include "Player.h"
-
+#include "AnimatedSprite.hpp"
  
 
 
@@ -21,14 +21,22 @@ private:
 	sf::Event				event;						//Main event for userInput
 
 	sf::Vector2f			pos;
-	sf::RectangleShape		pp;
+	AnimatedSprite			pp;  //New
 	sf::Vector2f			vel;
 
 	std::vector<sf::RectangleShape> blocks;
 	std::vector<sf::RectangleShape> borders;
 
 
+	Animation *currentAnimation;
+	AnimatedSprite animatedSprite;
 
+
+	sf::Clock frameClock;
+	sf::Time frameTime;
+	bool noKeyWasPressed;
+
+	
 
 
 public:
@@ -40,10 +48,11 @@ public:
 	void			drawGameLevel();	
 	void			drawTextures(std::vector<sf::RectangleShape> &shape, int size, sf::Texture &text);
 	void			drawView();							//How big the visible field is in res
-	void			drawPlayer();		
+	void			drawPlayer();						//Player = animation
 	void			drawMonster();
 	void			draw(sf::RectangleShape sprite);	
 	void			draw(sf::Sprite sprite);
+	void			draw(AnimatedSprite);
 	
 	void			userInput();							
 	void			movePlayer(float x, float y);
@@ -51,7 +60,10 @@ public:
 
 	void			loadTextures();
 
-	
+
+	void drawPlayerShadow();
+	AnimatedSprite getAnim();
+
 
 };
 
