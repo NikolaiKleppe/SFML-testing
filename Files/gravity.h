@@ -15,7 +15,7 @@ private:
 	float			runAcc;
 	float			jumpAcc;
 	float			maxJumpSpeed;
-	float			maxYSpeed;
+	float			maxXSpeed;
 	float			maxAcc;
 
 	sf::Vector2f	vel;

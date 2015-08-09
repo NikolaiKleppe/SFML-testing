@@ -18,9 +18,9 @@ Player::Player() {
 	loadTextures();
 	setupAnim();
 
-	playerShadow = sf::RectangleShape(sf::Vector2f(50, 30));
+	playerShadow = sf::RectangleShape(sf::Vector2f(20, 30));
 	playerShadow.setOrigin(20, 30);		 //Apparently this one is super important for the collision detection >.<
-	playerShadow.setPosition(sf::Vector2f(260, 290));
+	playerShadow.setPosition(sf::Vector2f(276, 290));
 	playerShadow.setTexture(&shadowTexture);
 
 	mainPlayer.setLooped(false);
@@ -59,7 +59,7 @@ void Player::movePlayer(float x, float y) {
 	mainPlayer.move(x, y);
 }
 
-void Player::moveShadow(float x, float y) {			//New
+void Player::moveShadow(float x, float y) {			
 	playerShadow.move(x, y);
 }
 
@@ -70,8 +70,11 @@ void Player::setPlayerPos(float x, float y) {
 
 /*Debugging function*/
 void Player::showCoord() {
-	std::cout << "Current X-Position:  " << mainPlayer.getPosition().x << "\n";
-	std::cout << "Current Y-Position:  " << mainPlayer.getPosition().y << "\n\n";
+	/*std::cout << "Current X-Position:  " << mainPlayer.getPosition().x << "\n";
+	std::cout << "Current Y-Position:  " << mainPlayer.getPosition().y << "\n\n";*/
+
+	std::cout << "Current X-Position:  " << playerShadow.getPosition().x << "\n";
+	std::cout << "Current Y-Position:  " << playerShadow.getPosition().y << "\n\n";
 }
 
 

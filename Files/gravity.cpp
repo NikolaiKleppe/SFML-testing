@@ -17,7 +17,7 @@ Gravity::Gravity(int jC, const float mF, const float rA, const float jA, const f
 	runAcc				= rA;
 	jumpAcc				= jA;
 	maxJumpSpeed		= jS;
-	maxYSpeed			= mS;
+	maxXSpeed           = mS;
 	maxAcc				= mA;
 
 	vel					= v;
@@ -36,7 +36,7 @@ Gravity::Gravity(int jC, const float mF, const float rA, const float jA, const f
 	std::cout << "runAcc             "			<< runAcc			<< "\n";
 	std::cout << "jumpAcc            "			<< jumpAcc			<< "\n";
 	std::cout << "maxJumpSpeed       "			<< maxJumpSpeed		<< "\n";
-	std::cout << "maxYSpeed          "			<< maxYSpeed		<< "\n";
+	std::cout << "maxXSpeed          "          << maxXSpeed << "\n";
 	std::cout << "maxAcc             "			<< maxAcc			<< "\n";
 
 	std::cout << "vel.y              "			<< vel.y			<< "\n";
@@ -98,11 +98,11 @@ void Gravity::limitAcceleration() {
 	/*This whole function exists because the other code is bad and buggy ^)*/
 
 	/* Limit acceleration (left and right) */
-	if (vel.x > maxYSpeed){
-		vel.x = maxYSpeed;
+	if (vel.x > maxXSpeed){
+		vel.x = maxXSpeed;
 	}
-	else if (vel.x < -maxYSpeed) {		//Uh.. why is maxYSpeed used here
-		vel.x = -maxYSpeed;
+	else if (vel.x < -maxXSpeed) {		//Uh.. why is maxYSpeed used here
+		vel.x = -maxXSpeed;				//Idk wtf this is doing
 	}
 
 	/* Limit fallspeed acceleration */

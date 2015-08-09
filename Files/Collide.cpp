@@ -40,11 +40,9 @@ void Collide::playerCollide(sf::RectangleShape sprite) {
 
 
 		/* Sprite hit from right side */
-		if ((v_player.x - 1.0) < v_sprite.x - f_player.height) {
+		if ((v_player.x - 31.0) < v_sprite.x - f_player.height) {
 			game->movePlayer(-1.0, 0.0);
 			gv->setBelowSidesBool();
-			
-			
 		}
 
 
@@ -53,6 +51,7 @@ void Collide::playerCollide(sf::RectangleShape sprite) {
 			game->movePlayer(1.0, 0.0);
 			gv->setBelowSidesBool();
 			
+
 		}
 
 

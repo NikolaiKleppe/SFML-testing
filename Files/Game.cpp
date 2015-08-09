@@ -25,7 +25,7 @@ Game::Game() {
 	loadTextures();
 
 	player  = new Player;
-	gv      = new Gravity(0, 0.4F, 0.001F, -0.05F, -0.8F, 0.5F, -0.1F, sf::Vector2f(0.0F, 0.0F), sf::Vector2f(0.F, 0.003F), 10, false, false, 5.0F);
+	gv      = new Gravity(0, 0.4F, 0.0008F, -0.05F, -0.8F, 0.3F, -0.1F, sf::Vector2f(0.0F, 0.0F), sf::Vector2f(0.F, 0.003F), 10, false, false, 5.0F);
 	monster = new Monster(0, false);
 	collide = new Collide();
 //	bullet  = new Bullet();
@@ -91,11 +91,11 @@ void Game::drawGameLevel() {
 	drawRectangle(borders[1],     15,     200,    -200,     20);
 	drawRectangle(borders[2],   2250,      15,    -200,    470);
 	drawRectangle(borders[3],    450,      15,    -200,     20);
-	drawRectangle(blocks[1],      80,      50,    100,    420);
-	drawRectangle(blocks[2],      80,      80,    -200,    350);
-	drawRectangle(blocks[3],      80,      50,       0,    250);
+	drawRectangle(blocks[1],      80,      50,     100,    420);
+	drawRectangle(blocks[2],      80,      80,    -100,    370);
+	drawRectangle(blocks[3],      80,      50,      70,    280);
 	drawRectangle(blocks[4],      80,      50,	   -80,    160);
-	drawRectangle(blocks[5],      80,      50,      160,    100);
+	drawRectangle(blocks[5],      80,      50,     160,    100);
 
 	drawView();
 }
@@ -111,7 +111,7 @@ void Game::drawTextures(std::vector<sf::RectangleShape> &shape, int size, sf::Te
 
 void Game::drawView() {
 	sf::View view(sf::FloatRect(200, 200, 300, 200));
-	AnimatedSprite pp = player->getPlayerAnim();
+	sf::RectangleShape pp = player->getPlayerShadow();
 	sf::Vector2f player_pos = pp.getPosition();
 
 	view.setSize(1200, 800);
