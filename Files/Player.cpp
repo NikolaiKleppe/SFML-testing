@@ -9,11 +9,6 @@
 extern Game *game;
 extern Gravity *gv;
 
-
-
-
-
-
 Player::Player() {
 	loadTextures();
 	setupAnim();
@@ -29,12 +24,6 @@ Player::Player() {
 
 }
 
-
-
-
-
-
-
 void Player::loadTextures() {
 	texture.loadFromFile("../../files/texture/player/player.png");
 
@@ -45,13 +34,6 @@ void Player::loadTextures() {
 	
 }
 
-sf::RectangleShape Player::getPlayerShadow() {
-	return playerShadow;
-}
-
-AnimatedSprite Player::getPlayerAnim() {
-	return mainPlayer;
-}
 
 
 
@@ -68,21 +50,21 @@ void Player::setPlayerPos(float x, float y) {
 	mainPlayer.setPosition(x, y);
 }
 
-/*Debugging function*/
-void Player::showCoord() {
-	/*std::cout << "Current X-Position:  " << mainPlayer.getPosition().x << "\n";
-	std::cout << "Current Y-Position:  " << mainPlayer.getPosition().y << "\n\n";*/
 
-	std::cout << "Current X-Position:  " << playerShadow.getPosition().x << "\n";
-	std::cout << "Current Y-Position:  " << playerShadow.getPosition().y << "\n\n";
+
+
+
+sf::RectangleShape Player::getPlayerShadow() {
+	return playerShadow;
 }
 
-
+AnimatedSprite Player::getPlayerAnim() {
+	return mainPlayer;
+}
 
 Animation * Player::getDown() {
 	return &walkingAnimationDown;
 }
-
 
 Animation * Player::getLeft() {
 	return &walkingAnimationLeft;
@@ -95,9 +77,6 @@ Animation * Player::getRight() {
 Animation * Player::getUp() {
 	return &walkingAnimationUp;
 }
-
-
-
 
 
 
@@ -131,3 +110,14 @@ void Player::setupAnim() {
 		walkingAnimationUp.addFrame(sf::IntRect(32, 96, 32, 32));
 		walkingAnimationUp.addFrame(sf::IntRect(0, 96, 32, 32));
 	}
+
+
+
+/*Debugging function*/
+void Player::showCoord() {
+	/*std::cout << "Current X-Position:  " << mainPlayer.getPosition().x << "\n";
+	std::cout << "Current Y-Position:  " << mainPlayer.getPosition().y << "\n\n";*/
+
+	std::cout << "Current X-Position:  " << playerShadow.getPosition().x << "\n";
+	std::cout << "Current Y-Position:  " << playerShadow.getPosition().y << "\n\n";
+}

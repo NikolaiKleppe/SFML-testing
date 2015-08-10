@@ -1,4 +1,5 @@
 #include "gravity.h"
+#include "Player.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
@@ -41,6 +42,7 @@ Gravity::Gravity(int jC, const float mF, const float rA, const float jA, const f
 
 	std::cout << "vel.y              "			<< vel.y			<< "\n";
 	std::cout << "vel.x              "			<< vel.x			<< "\n";
+	std::cout << "gravity            "			<< g.y              << "\n";
 
 	std::cout << "hitGround          "			<< hitGround		<< "\n";
 	std::cout << "hitSidesOrBelow    "			<< hitSidesOrBelow	<< "\n";
@@ -89,7 +91,7 @@ sf::Vector2f Gravity::movingRight() {
 
 
 sf::Vector2f Gravity::deAccelerate() {
-	vel.x *= 0.992;
+	vel.x *= 0.980;
 	return vel;
 }
 

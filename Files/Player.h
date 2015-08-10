@@ -18,34 +18,32 @@ private:
 	sf::Image			shadowImage;
 	sf::Texture			shadowTexture;
 
-	Animation walkingAnimationDown;
-	Animation walkingAnimationLeft;
-	Animation walkingAnimationRight;
-	Animation walkingAnimationUp;
+	Animation           walkingAnimationDown;
+	Animation           walkingAnimationLeft;
+	Animation           walkingAnimationRight;
+	Animation           walkingAnimationUp;
+
+
+
 
 public:
 	Player();			
 
 	void				loadTextures();
-	sf::RectangleShape  getPlayerShadow();
-	AnimatedSprite		getPlayerAnim();
+
 	void				movePlayer(float x, float y);
 	void				moveShadow(float x, float y);
 	void				setPlayerPos(float x, float y);
-	void				showCoord();
 	
-	void setupAnim();
+	sf::RectangleShape  getPlayerShadow();
+	AnimatedSprite		getPlayerAnim();
+	Animation*          getDown();
+	Animation*          getLeft();
+	Animation*          getRight();
+	Animation*          getUp();
 
-
-	Animation * getDown();
-	Animation * getLeft();
-	Animation * getRight();
-	Animation * getUp();
-
-
-
-
-
+	void                setupAnim();
+	void				showCoord();
 
 
 };

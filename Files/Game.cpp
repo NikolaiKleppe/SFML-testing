@@ -152,7 +152,7 @@ void Game::userInput() {
 
 
 	vel	= gv->updateGravity();
-
+	frameTime = frameClock.restart();
 	
 
 	movePlayer(0.0, vel.y);							//Up-Down
@@ -160,13 +160,6 @@ void Game::userInput() {
 	
 	
 
-	frameTime = frameClock.restart();
-
-
-	
-
-
-	/* TODO: Put all of this in its own function */
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
 
 		currentAnimation = player->getUp();
