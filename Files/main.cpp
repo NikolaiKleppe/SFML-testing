@@ -10,7 +10,7 @@
 
 
 Game    *game;
-Player	*player;
+Player  *player;
 Gravity *gv;
 Monster *monster;
 Collide *collide;
@@ -19,10 +19,10 @@ Bullet  *bullet;
 
 
 
-int main() { 	
-	game    = new Game;
-	game->runWindow();
-	return 0;
+int main() {    
+    game    = new Game;
+    game->runWindow();
+    return 0;
 }
 
 

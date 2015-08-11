@@ -12,51 +12,51 @@
 class Player {
 
 private:
-	AnimatedSprite		mainPlayer;
-	sf::RectangleShape  playerShadow;
-	sf::Texture			texture;
-	sf::Image			shadowImage;
-	sf::Texture			shadowTexture;
+    AnimatedSprite      mainPlayer;
+    sf::RectangleShape  playerShadow;
+    sf::Texture         texture;
+    sf::Image           shadowImage;
+    sf::Texture         shadowTexture;
 
-	Animation           walkingAnimationDown;
-	Animation           walkingAnimationLeft;
-	Animation           walkingAnimationRight;
-	Animation           walkingAnimationUp;
+    Animation           walkingAnimationDown;
+    Animation           walkingAnimationLeft;
+    Animation           walkingAnimationRight;
+    Animation           walkingAnimationUp;
 
 
-	/* Player stats */
-	float playerSpeed;
+    /* Player stats */
+    float playerSpeed;
 
 
 public:
-	Player();			
+    Player();           
 
-	void				loadTextures();
+    void                loadTextures();
 
-	void				movePlayer(float x, float y);
-	void				moveShadow(float x, float y);
-	void				setPlayerPos(float x, float y);
-	
-	float				getPlayerSpeed();
+    void                movePlayer(float x, float y);
+    void                moveShadow(float x, float y);
+    void                setPlayerPos(float x, float y);
+    
+    float               getPlayerSpeed();
 
 
-	sf::RectangleShape  getPlayerShadow();
-	AnimatedSprite		getPlayerAnim();
-	Animation*          getDown();
-	Animation*          getLeft();
-	Animation*          getRight();
-	Animation*          getUp();
+    sf::RectangleShape  getPlayerShadow();
+    AnimatedSprite      getPlayerAnim();
+    Animation*          getDown();
+    Animation*          getLeft();
+    Animation*          getRight();
+    Animation*          getUp();
 
-	void                setupAnim();
-	void				showCoord();
+    void                setupAnim();
+    void                showCoord();
 
 
 };
 
 
-	
-	
-	
+    
+    
+    
 
 
 

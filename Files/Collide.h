@@ -13,15 +13,15 @@ private:
 
 public:
 
-	Collide();
-	~Collide();
+    Collide();
+    ~Collide();
 
 
-	void				playerCollide(sf::RectangleShape sprite);
-	bool				b_intersects(const sf::RectangleShape &rect1, const sf::RectangleShape &rect2);
-	
-	void				movePlayer(float x, float y);
-	
+    void                playerCollide(sf::RectangleShape sprite);
+    bool                b_intersects(const sf::RectangleShape &rect1, const sf::RectangleShape &rect2);
+    
+    void                movePlayer(float x, float y);
+    
 
 };
 
