@@ -24,6 +24,8 @@ private:
 	Animation           walkingAnimationUp;
 
 
+	/* Player stats */
+	float playerSpeed;
 
 
 public:
@@ -35,6 +37,9 @@ public:
 	void				moveShadow(float x, float y);
 	void				setPlayerPos(float x, float y);
 	
+	float				getPlayerSpeed();
+
+
 	sf::RectangleShape  getPlayerShadow();
 	AnimatedSprite		getPlayerAnim();
 	Animation*          getDown();

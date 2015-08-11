@@ -22,6 +22,8 @@ Player::Player() {
 	mainPlayer.isPlaying();
 	mainPlayer.setPosition(sf::Vector2f(250, 260));
 
+	playerSpeed = 0.4;					//Default player speed
+
 }
 
 void Player::loadTextures() {
@@ -51,6 +53,10 @@ void Player::setPlayerPos(float x, float y) {
 }
 
 
+
+float Player::getPlayerSpeed() {
+	return playerSpeed;
+}
 
 
 
