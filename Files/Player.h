@@ -29,17 +29,17 @@ private:
 
 
 public:
-    Player();           
+    Player();     
 
     void                loadTextures();
 
     void                movePlayer(float x, float y);
     void                moveShadow(float x, float y);
+
     void                setPlayerPos(float x, float y);
-    
+	void                setPlayerSpeed(float x);
+
     float               getPlayerSpeed();
-
-
     sf::RectangleShape  getPlayerShadow();
     AnimatedSprite      getPlayerAnim();
     Animation*          getDown();

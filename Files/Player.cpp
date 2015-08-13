@@ -9,6 +9,8 @@
 extern Game *game;
 extern Gravity *gv;
 
+
+
 Player::Player() {
     loadTextures();
     setupAnim();
@@ -22,8 +24,7 @@ Player::Player() {
     mainPlayer.isPlaying();
     mainPlayer.setPosition(sf::Vector2f(250, 260));
 
-    playerSpeed = 0.4F;                  //Default player speed
-
+	setPlayerSpeed(0.4F);
 }
 
 void Player::loadTextures() {
@@ -33,9 +34,7 @@ void Player::loadTextures() {
     shadowImage.createMaskFromColor(sf::Color::White);
 
     shadowTexture.loadFromImage(shadowImage);
-    
 }
-
 
 
 
@@ -48,8 +47,13 @@ void Player::moveShadow(float x, float y) {
 }
 
 
+
 void Player::setPlayerPos(float x, float y) {
     mainPlayer.setPosition(x, y);
+}
+
+void Player::setPlayerSpeed(float x) {            //This can be used to "upgrade" player speeds with items etc
+	playerSpeed = x;
 }
 
 
@@ -57,8 +61,6 @@ void Player::setPlayerPos(float x, float y) {
 float Player::getPlayerSpeed() {
     return playerSpeed;
 }
-
-
 
 sf::RectangleShape Player::getPlayerShadow() {
     return playerShadow;

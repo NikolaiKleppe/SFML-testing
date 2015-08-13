@@ -24,7 +24,7 @@ Game::Game() {
     window.setFramerateLimit(FPS);
     loadTextures();
 
-    player  = new Player;
+	player  = new Player();
     gv      = new Gravity(0, 0.4F, 0.0008F, -0.05F, -0.8F, -0.1F, sf::Vector2f(0.0F, 0.0F), sf::Vector2f(0.F, 0.003F), 10, false, false, 5.0F);
     monster = new Monster(0, false);
     collide = new Collide();
