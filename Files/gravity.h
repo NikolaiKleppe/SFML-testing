@@ -59,11 +59,6 @@ public:
 
     void                    printBools();
     void                    printVelocity();
-
-    
-
-
-
 };
 
 

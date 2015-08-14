@@ -33,8 +33,6 @@ void Monster::drawMonsters() {
     makeMonster(monster[1], -600.0, -100.0, 200.0, 250.0);
 
     moveMonster(monster[1], text1, text2);
-
-
 }
 
 void Monster::loadTextures() {

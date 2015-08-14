@@ -6,6 +6,7 @@
 #include "Monster.h"
 #include "Collide.h"
 #include "Bullet.h"
+#include "level.h"
 #include <iostream>
 
 
@@ -15,9 +16,7 @@ Gravity *gv;
 Monster *monster;
 Collide *collide;
 Bullet  *bullet;
-//AnimatedSprite *animatedSprite;
-
-
+Level   *level;
 
 int main() {    
     game    = new Game;
