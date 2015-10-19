@@ -13,14 +13,16 @@ class Game {
 private:
     sf::RenderWindow        window;
     sf::Font                font;
-    sf::Int64               updateTime;                 //60fps
-    sf::Clock               updateClock;                //60fps
     sf::Event               event;                      //Main event for userInput
 
-    sf::Vector2f            pos; 
-    sf::Vector2f            vel;
+    sf::Vector2f            vel;                        //Player velocity
 
-	      /* Animation stuff */
+     /* 60 FPS */
+    sf::Int64               updateTime, nextFrameTime;
+    sf::Clock               updateClock, clock;
+    sf::Time                time;
+
+	/* Animation stuff */
     Animation              *currentAnimation;
     AnimatedSprite         animatedSprite;
     sf::Clock              frameClock;								

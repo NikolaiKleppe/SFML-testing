@@ -28,6 +28,7 @@ Game::Game() {
     monster          = new Monster(0, false);
     collide          = new Collide();
     level            = new Level();
+    bullet           = new Bullet();
 
     currentAnimation = player->getDown();       
     animatedSprite   = player->getPlayerAnim();
@@ -36,24 +37,23 @@ Game::Game() {
 void Game::runWindow() {    
     while (window.isOpen()) {   
 
-        /*Make the game run at 60fps*/
-        const int frameTime = 1000000 / FPS;
-        sf::Clock c;
-        sf::Time t = c.getElapsedTime();
-        sf::Int64 nextFrameTime = t.asMicroseconds() + frameTime;
+        /*Make the game run at 60fps*/     
+        time = clock.getElapsedTime();
+        nextFrameTime = time.asMicroseconds() + FRAMETIME;
 
         int loops = 0;
-        while (t.asMicroseconds() < nextFrameTime && loops < FRAMESKIP)  {
+        while (time.asMicroseconds() < nextFrameTime && loops < FRAMESKIP)  {
             window.clear();
             updateTime = updateClock.restart().asMilliseconds();
+
             userInput();
             level->drawGameLevel();
             drawPlayer();
             drawPlayerShadow();
             monster->drawMonsters();
-            t = c.getElapsedTime();
-            loops++;
 
+            time = clock.getElapsedTime();
+            loops++;
         }
         window.display();
         window.setView(level->drawView());
@@ -112,6 +112,13 @@ void Game::userInput() {
         animatedSprite.stop();
     }
     noKeyWasPressed = true;
+
+
+    //Firing
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+        bullet->fireBullet();
+    }
+
 
     /* Debug: show coodinate*/
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)) {

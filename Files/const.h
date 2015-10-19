@@ -10,6 +10,7 @@ const float                 B_HEIGHT   = 450;         //Border
 
 const int                   FPS        = 60;
 const int                   FRAMESKIP  = 10;
+const int                   FRAMETIME  = 1000000 / FPS;
 
 
 #endif

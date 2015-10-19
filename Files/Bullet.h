@@ -13,7 +13,8 @@ class Bullet {
 private:
     sf::Sprite              sprite;
     sf::Texture             texture;
-    sf::Vector2f            targetDirection;
+    sf::Image               image;
+    sf::Vector2f            targetDirection; 
 
     std::vector<sf::Sprite> bullet;
 
@@ -21,9 +22,11 @@ public:
     Bullet();
     ~Bullet();
 
-    void                    makeBullet();
+    void                    makeBullet(sf::Sprite &name, float posX, float posY, sf::Texture &text);
     void                    fireBullet();
     void                    loadTextures();
+
+    void test(sf::Sprite &sprite);
 };
 
 
