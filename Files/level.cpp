@@ -28,7 +28,7 @@ void Level::drawGameLevel() {
 
     drawRectangle(blocks[1],      80,      50,     100,    420);
     drawRectangle(blocks[2],      80,      80,    -100,    370);
-    drawRectangle(blocks[3],      80,      50,     70,     280);
+    drawRectangle(blocks[3],      80,      50,      70,    280);
     drawRectangle(blocks[4],      80,      50,     -80,    180);
     drawRectangle(blocks[5],      150,     50,     160,    100);
 }

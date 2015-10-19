@@ -42,8 +42,6 @@ Gravity::Gravity(
     hitTimer        =  _hitTimer;
 
 
-
-
     std::cout <<       "JumpCounter        "         << jumpCounter     << "\n";
     std::cout <<       "maxFall            "         << maxFall         << "\n";
     std::cout <<       "runAcc             "         << runAcc          << "\n";
@@ -61,7 +59,6 @@ Gravity::Gravity(
     std::cout <<       "hitTimer           "         << hitTimer        << "\n";
 
 }
-
 
 
 sf::Vector2f Gravity::updateVelocity() {
@@ -121,7 +118,6 @@ void Gravity::limitAcceleration() {
     }
 
 
-
     /* Limit fallspeed acceleration */
     if (vel.y > maxFall) {
         vel.y = maxFall;
@@ -135,10 +131,11 @@ void Gravity::limitAcceleration() {
 
 
     /* Stops a bug where player will accelerate too fast when hitting blocks from the side*/
-    /* TODO: setup if else, same as on maxXspeed */
     if ((vel.y < maxAcc) && (hitSidesOrBelow == true)) {
         vel.y = maxAcc;
     }
+    /* TODO: setup else here, same as on maxXspeed */
+
     else {
         hitSidesOrBelow = false;
     }
@@ -155,7 +152,7 @@ void Gravity::setBelowSidesBool() {
 
 
 void Gravity::printBools() {
-    std::cout << "hitGround: " << hitGround << "\n";
+    std::cout << "hitGround: "       << hitGround << "\n";
     std::cout << "hitSidesOrBelow: " << hitSidesOrBelow << "\n";
 }
 
