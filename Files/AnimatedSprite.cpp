@@ -1,3 +1,8 @@
+/*
+This is not written by me, it's from
+https://github.com/SFML/SFML/wiki/Source:-AnimatedSprite
+*/
+
 #include "AnimatedSprite.hpp"
 
 AnimatedSprite::AnimatedSprite(sf::Time frameTime, bool paused, bool looped) :

@@ -2,6 +2,8 @@
 #include "Game.h"
 #include <SFML/Graphics.hpp>
 
+
+
 extern Game *game;
 
 Bullet::Bullet() {
@@ -18,12 +20,7 @@ Bullet::~Bullet() {
 
 void Bullet::makeBullet(sf::Sprite &name, float posX, float posY, sf::Texture &text) {
     
-    /*Everytime fireBullet() is called:
-    - Make a new bullet
-    - Put into vector
-    - 
-    
-    */
+
 
     name.setOrigin(sf::Vector2f(posX, posY));       //Later: origin = player position etc etc
     name.setTexture(text);
@@ -38,44 +35,65 @@ void Bullet::makeBullet(sf::Sprite &name, float posX, float posY, sf::Texture &t
 
 void Bullet::fireBullet() {
     
+    /*Everytime fireBullet() is called:
+    - Make a new bullet
+    - Put into vector
+    -
 
-    makeBullet(bullet[1], -400, -400, texture);  //Start with making a bullet when Space is held down
+    */
 
-    test(bullet[1]);
-    
 
     /*
-    Everything on update position, set start position etc
-    Fire velocity
-    Delete when out of screen or time has passed
-    
+    Start with making a bullet when Space is pressed(!)
+    -400, -400 is just temporary position. Needs to be started from current player position + an offset. 
     */
+    makeBullet(bullet[1], -400, -400, texture);    
+
+    moveBullet(bullet[1]);
+    
+
+   
+  //  Everything on update position, set start position etc
+
+
+
+  //  Set fire velocity ? 
+
+
+
+  //  Delete when out of screen or a set time has passed
+    
+    
     
 
    
 }
 
-void Bullet::test(sf::Sprite &sprite) {
-    
+void Bullet::moveBullet(sf::Sprite &sprite) {
+    float x, y = 0.F;
 
 
-    sprite.move(0.5F, 0.0F);
+
+    sprite.move(0.5F, 0.0F);  // X direction. Only temporary
+
+
+
+//   x += blabla
+//   y += blabla
+//   sprite.setPosition(x, y);
+
+
+   
     
   
 }
 
 
 void Bullet::loadTextures() {
-
-
-
-
   /*  texture.loadFromFile("../../files/texture/weapons/bullet.png"); */
   
     image.loadFromFile("../../files/texture/weapons/bullet.png");
-
     image.createMaskFromColor(sf::Color::White);
-
     texture.loadFromImage(image);
 }
 

@@ -18,6 +18,8 @@ private:
 
     std::vector<sf::Sprite> bullet;
 
+    int                     travelTime;
+
 public:
     Bullet();
     ~Bullet();
@@ -26,7 +28,7 @@ public:
     void                    fireBullet();
     void                    loadTextures();
 
-    void test(sf::Sprite &sprite);
+    void                    moveBullet(sf::Sprite &sprite);
 };
 
 
