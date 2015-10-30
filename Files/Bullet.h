@@ -14,17 +14,17 @@ private:
     sf::Sprite              sprite;
     sf::Texture             texture;
     sf::Image               image;
-    sf::Vector2f            targetDirection; 
 
     std::vector<sf::Sprite> bullet;
 
     int                     travelTime;
+    bool                    isFiring;
 
 public:
     Bullet();
     ~Bullet();
 
-    void                    makeBullet(sf::Sprite &name, float posX, float posY, sf::Texture &text);
+    void                    createBullet(sf::Sprite &name, sf::Texture &text);
     void                    fireBullet();
     void                    loadTextures();
 

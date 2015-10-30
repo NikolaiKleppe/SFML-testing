@@ -118,7 +118,8 @@ void Game::userInput() {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
         bullet->fireBullet();
     }
-
+    
+    
 
     /* Debug: show coodinate*/
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)) {

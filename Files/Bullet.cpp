@@ -8,25 +8,26 @@ extern Game *game;
 
 Bullet::Bullet() {
     bullet.resize(100); 
+    isFiring = false;
     loadTextures();
-    std::cout << "\dd";
 }
 
 Bullet::~Bullet() {
-    std::cout << "\ndead";
 }
 
 
 
-void Bullet::makeBullet(sf::Sprite &name, float posX, float posY, sf::Texture &text) {
+void Bullet::createBullet(sf::Sprite &name, sf::Texture &text) {
     
 
 
-    name.setOrigin(sf::Vector2f(posX, posY));       //Later: origin = player position etc etc
+    name.setOrigin(sf::Vector2f(-400.0, -400.0));       //Later: origin = player position etc etc
     name.setTexture(text);
 
-    
-   
+    /*
+    Need to push_back here
+    */
+
     game->draw(name);
     
     
@@ -36,32 +37,27 @@ void Bullet::makeBullet(sf::Sprite &name, float posX, float posY, sf::Texture &t
 void Bullet::fireBullet() {
     
     /*Everytime fireBullet() is called:
-    - Make a new bullet
-    - Put into vector
-    -
-
+    1) Create a new bullet (push_back into vector)
+    2) Move the bullet until hit hits screen border
+    3) Delete the bullet (pop)
     */
 
 
     /*
     Start with making a bullet when Space is pressed(!)
-    -400, -400 is just temporary position. Needs to be started from current player position + an offset. 
+    [1] is temp hardcoded, need to be dynamic. Cant get push_back to work ._.
     */
-    makeBullet(bullet[1], -400, -400, texture);    
+    createBullet(bullet[1], texture);
 
-    moveBullet(bullet[1]);
-    
+
 
    
-  //  Everything on update position, set start position etc
+    //Everything on update position, set start position etc
+    moveBullet(bullet[1]);
 
 
 
-  //  Set fire velocity ? 
-
-
-
-  //  Delete when out of screen or a set time has passed
+    //Delete when out of screen or a set time has passed (pop)
     
     
     
@@ -72,14 +68,17 @@ void Bullet::fireBullet() {
 void Bullet::moveBullet(sf::Sprite &sprite) {
     float x, y = 0.F;
 
+    sprite.move(0.5F, 0.0F);  // X direction. Only temporary. This only works as long as space is held down
 
 
-    sprite.move(0.5F, 0.0F);  // X direction. Only temporary
 
 
 
-//   x += blabla
-//   y += blabla
+
+
+//   Set fire velocity 
+//   x += velocity
+//   y += velocity
 //   sprite.setPosition(x, y);
 
 
@@ -96,8 +95,6 @@ void Bullet::loadTextures() {
     image.createMaskFromColor(sf::Color::White);
     texture.loadFromImage(image);
 }
-
-
 
 
 
