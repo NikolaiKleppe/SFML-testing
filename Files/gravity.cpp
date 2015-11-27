@@ -4,59 +4,29 @@
 #include <SFML/Graphics.hpp>
 
 
-Gravity::Gravity() {
-    
-}
 
-Gravity::Gravity(
-    int                _jumpCounter, 
-    const float        _maxFall, 
-    const float        _runAcc, 
-    const float        _jumpAcc, 
-    const float        _maxYSpeed,  
-    const float        _maxAcc,
-    sf::Vector2f       _velocity, 
-    sf::Vector2f       _gravity,
-    const int          _jumpFrames, 
-    bool               _hitGround,
-    bool               _hitSidesOrBelow, 
-    float              _hitTimer
-    ) {
+//Gravity(0, 0.4F, 0.0008F, -0.05F, -0.8F, -0.1F, sf::Vector2f(0.0F, 0.0F), sf::Vector2f(0.F, 0.003F), 10, false, false, 5.0F);
+
+
+Gravity::Gravity() {
+
+    jumpCounter     = 0;
+    jumpFrames      = 10;
+    maxFall         = 0.4F;
+    hitTimer        = 5.0F;
+    maxAcc          = -0.1F;          //Idk?
+    maxJumpSpeed    = -0.8F;
+    maxXSpeed       = -0.1F;
+    hitGround       = false;
+    hitSidesOrBelow = false;
+    jumpAcc         = -0.05F;
+    runAcc          = 0.0008F;
+    vel             = sf::Vector2f(0.0F, 0.0F);
+    gravity         = sf::Vector2f(0.0F, 0.003F);
 
     Player *player = new Player();
     maxXSpeed = player->getPlayerSpeed();
     
-    jumpCounter     =  _jumpCounter;
-    maxFall         =  _maxFall;
-    runAcc          =  _runAcc;
-    jumpAcc         =  _jumpAcc;
-    maxJumpSpeed    =  _maxYSpeed;
-    maxAcc          =  _maxAcc;
-
-    vel             =  _velocity;
-    gravity         =  _gravity;
-
-    jumpFrames      =  _jumpFrames;
-    hitGround       =  _hitGround;
-    hitSidesOrBelow =  _hitSidesOrBelow;
-    hitTimer        =  _hitTimer;
-
-
-    std::cout <<       "JumpCounter        "         << jumpCounter     << "\n";
-    std::cout <<       "maxFall            "         << maxFall         << "\n";
-    std::cout <<       "runAcc             "         << runAcc          << "\n";
-    std::cout <<       "jumpAcc            "         << jumpAcc         << "\n";
-    std::cout <<       "maxJumpSpeed       "         << maxJumpSpeed    << "\n";
-    std::cout <<       "maxXSpeed          "         << maxXSpeed       << "\n";
-    std::cout <<       "maxAcc             "         << maxAcc          << "\n";
-
-    std::cout <<       "vel.y              "         << vel.y           << "\n";
-    std::cout <<       "vel.x              "         << vel.x           << "\n";
-    std::cout <<       "gravity            "         << gravity.y       << "\n";
-
-    std::cout <<       "hitGround          "         << hitGround       << "\n";
-    std::cout <<       "hitSidesOrBelow    "         << hitSidesOrBelow << "\n";
-    std::cout <<       "hitTimer           "         << hitTimer        << "\n";
 
 }
 
@@ -105,11 +75,9 @@ sf::Vector2f Gravity::deAccelerate() {
 
 
 void Gravity::limitAcceleration() {
-    /*This whole function exists because the other code is bad and buggy ^)
-        The different speeds are always increasing when there's no limit set. 
-    */
+    /* Stops sudden weird speeds under certain conditions */
 
-                                        
+
     if (vel.x > maxXSpeed){              //Limit acceleration right
         vel.x = maxXSpeed;
     }
