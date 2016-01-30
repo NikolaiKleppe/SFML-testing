@@ -9,10 +9,10 @@
 class Monster {
 
 private:
-    sf::Texture             text1, text2;
-    sf::Image               image1, image2;
-    int                     moveCount;
-    bool                    test;
+    sf::Texture         text1, text2;
+    sf::Image           image1, image2;
+    int moveCount;
+    bool test;
 
     std::vector<sf::RectangleShape> monster;
 
@@ -21,10 +21,10 @@ public:
     Monster(int mC, bool t);
 
 
-    void                    makeMonster(sf::RectangleShape name, float posX, float posY, float sizeX, float sizeY);
-    void                    drawMonsters();
-    void                    loadTextures();
-    void                    moveMonster(sf::RectangleShape &name, sf::Texture &texture1, sf::Texture &texture2);
+    void makeMonster(sf::RectangleShape name, float posX, float posY, float sizeX, float sizeY);
+    void drawMonsters();
+    void loadTextures();
+    void moveMonster(sf::RectangleShape &name, sf::Texture &texture1, sf::Texture &texture2);
 
 
     

@@ -21,7 +21,9 @@ private:
     sf::Vector2f            vel;
     sf::Vector2f            gravity;
     
+
     int                     jumpFrames;
+
     bool                    hitGround;
     bool                    hitSidesOrBelow;
     float                   hitTimer;
@@ -29,6 +31,20 @@ private:
 public:
     Gravity();
     ~Gravity();
+    Gravity::Gravity(
+        int                _jumpCounter,
+        const float        _maxFall,
+        const float        _runAcc,
+        const float        _jumpAcc,
+        const float        _maxYSpeed,
+        const float        _maxAcc,
+        sf::Vector2f       _velocity,
+        sf::Vector2f       _gravity,
+        const int          _jumpFrames,
+        bool               _hitGround,
+        bool               _hitSidesOrBelow,
+        float              _hitTimer
+    );
 
 
     sf::Vector2f            updateVelocity();
@@ -38,11 +54,16 @@ public:
     sf::Vector2f            movingRight();
     sf::Vector2f            deAccelerate();
     void                    limitAcceleration();
-    void                    setGroundBool();
-    void                    setBelowSidesBool();
+    void                    setGroundBoolToTrue();
+    void                    setBelowSidesBoolToTrue();
 
     void                    printBools();
     void                    printVelocity();
+
+    
+
+
+
 };
 
 

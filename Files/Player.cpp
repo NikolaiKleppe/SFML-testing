@@ -24,7 +24,7 @@ Player::Player() {
     mainPlayer.isPlaying();
     mainPlayer.setPosition(sf::Vector2f(250, 260));
 
-	setPlayerSpeed(0.4F);
+    setPlayerSpeed(0.4F);
 }
 
 void Player::loadTextures() {
@@ -53,7 +53,7 @@ void Player::setPlayerPos(float x, float y) {
 }
 
 void Player::setPlayerSpeed(float x) {            //This can be used to "upgrade" player speeds with items etc
-	playerSpeed = x;
+    playerSpeed = x;
 }
 
 

@@ -11,24 +11,36 @@
 class Bullet {
 
 private:
-    sf::Sprite              sprite;
+
+    sf::Sprite              bulletSpr;
     sf::Texture             texture;
-    sf::Image               image;
+    sf::Image               bulletImage;
 
-    std::vector<sf::Sprite> bullet;
+    //std::vector<sf::Sprite> bullet;
+    std::vector<Bullet>     bullet;
 
-    int                     travelTime;
-    bool                    isFiring;
+   
+
+
+
+
 
 public:
+
     Bullet();
     ~Bullet();
 
-    void                    createBullet(sf::Sprite &name, sf::Texture &text);
+
+
+
+    void                    createBullet();
     void                    fireBullet();
     void                    loadTextures();
 
-    void                    moveBullet(sf::Sprite &sprite);
+    void                    moveBullet();
+
+
+
 };
 
 

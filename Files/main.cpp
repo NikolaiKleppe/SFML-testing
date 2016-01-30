@@ -9,7 +9,6 @@
 #include "level.h"
 #include <iostream>
 
-
 Game    *game;
 Player  *player;
 Gravity *gv;
@@ -17,6 +16,10 @@ Monster *monster;
 Collide *collide;
 Bullet  *bullet;
 Level   *level;
+//AnimatedSprite *animatedSprite;
+
+
+
 
 int main() {    
     game    = new Game;

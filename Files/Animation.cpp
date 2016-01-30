@@ -1,8 +1,3 @@
-/*
-This is not written by me, it's from
-https://github.com/SFML/SFML/wiki/Source:-AnimatedSprite
-*/
-
 #include "Animation.hpp"
 
 Animation::Animation() : m_texture(NULL)
