@@ -6,6 +6,7 @@
 !.gitignore
 !*.cpp
 !*.h
+!*.hpp
 !*.png
 !*.jpg
 !*.ttf
