@@ -27,9 +27,8 @@ private:
     sf::Clock               updateClock;                //60fps
     sf::Event               event;                      //Main event for userInput
 
-    sf::Vector2f            pos;
-    AnimatedSprite          pp;  //New
-    sf::Vector2f            vel;
+    sf::Vector2f            pos; 
+    sf::Vector2f            vel;                        //Velocity
 
     std::vector<sf::RectangleShape> blocks;
     std::vector<sf::RectangleShape> borders;

@@ -16,14 +16,15 @@ private:
     sf::Texture             texture;
     sf::Image               bulletImage;
 
-    //std::vector<sf::Sprite> bullet;
-    std::vector<Bullet>     bullet;
+    std::vector<sf::Sprite> bullet;
+    //std::vector<Bullet>     bullet;
+    std::vector<sf::Sprite>::iterator iterator;
 
-   
+    sf::Vector2f            velocity;
+    sf::Vector2f            position;
 
-
-
-
+    int                     maxAmmmo;
+    int                     currentBullet;
 
 public:
 
@@ -38,7 +39,7 @@ public:
     void                    loadTextures();
 
     void                    moveBullet();
-
+    void                    deleteBullets();
 
 
 };
